@@ -1,0 +1,23 @@
+import { Card, Cards } from "nextra-theme-docs";
+import { RiAccountCircleLine, RiScanLine } from "react-icons/ri";
+
+# Panduan Pengguna
+
+Panduan penggunaan merupakan panduan yang berisi cara penggunaan aplikasi SIPBUK. Panduan ini dibuat untuk memudahkan pengguna dalam menggunakan aplikasi SIPBUK.
+
+Anda dapat memulai dengan membaca panduan penggunaan berikut ini:
+
+<div className="grid grid-cols-2 gap-4 mt-4">
+  <Card
+    icon={<RiScanLine size={24} />}
+    title="Konsultasi"
+    href="/docs/user-guide/consult"
+    arrow={true}
+  />
+  <Card
+    icon={<RiAccountCircleLine size={24} />}
+    title="Akun"
+    href="/docs/user-guide/account"
+    arrow={true}
+  />
+</div>

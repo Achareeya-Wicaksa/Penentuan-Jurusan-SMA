@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id                   String                 @id @default(uuid())
+  role                 String                 @default("user")
+  fullname             String                 @db.VarChar(255)
+  email                String                 @unique
+  password             String
+  isVerified           Boolean                @default(false)
+  verifyToken          String?                @unique
+  authToken            String?                @unique
+  passwordResetToken   String?                @unique
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  UsersDiagnoseHistory UsersDiagnoseHistory[]
+}
+
+model PestsAndDeseases {
+  code                        Int                           @id @default(autoincrement())
+  name                        String                        @db.VarChar(255)
+  createdAt                   DateTime                      @default(now())
+  updatedAt                   DateTime                      @updatedAt
+  symptoms                    Symptoms[]                    @relation("PestsAndDeseasesHasSymptoms")
+  solution                    String                        @db.Text
+  activeIngredient            String                        @db.Text
+  PestsAndDeseasesHasSymptoms PestsAndDeseasesHasSymptoms[]
+  UsersDiagnoseHistory        UsersDiagnoseHistory[]
+}
+
+model Symptoms {
+  code                        Int                           @id @default(autoincrement())
+  info                        String                        @db.VarChar(255)
+  imageUrl                    String                        @db.VarChar(255)
+  createdAt                   DateTime                      @default(now())
+  updatedAt                   DateTime                      @updatedAt
+  pestsAndDeseases            PestsAndDeseases[]            @relation("PestsAndDeseasesHasSymptoms")
+  PestsAndDeseasesHasSymptoms PestsAndDeseasesHasSymptoms[]
+}
+
+model PestsAndDeseasesHasSymptoms {
+  id                 Int              @id @default(autoincrement())
+  pestAndDeseaseCode Int
+  symptomCode        Int
+  expertCF           Float            @default(0)
+  pestsAndDeseases   PestsAndDeseases @relation(fields: [pestAndDeseaseCode], references: [code])
+  symptoms           Symptoms         @relation(fields: [symptomCode], references: [code])
+
+  @@index([symptomCode])
+  @@index([pestAndDeseaseCode])
+}
+
+model UsersDiagnoseHistory {
+  id                 String           @id @default(uuid())
+  userId             String
+  pestAndDeseaseCode Int
+  finalCF            Float            @default(0)
+  userInputData      Json
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  user               User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pestsAndDeseases   PestsAndDeseases @relation(fields: [pestAndDeseaseCode], references: [code])
+
+  @@index([userId])
+  @@index([pestAndDeseaseCode])
+}

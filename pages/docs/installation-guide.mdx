@@ -1,0 +1,115 @@
+# Panduan Instalasi Aplikasi SIPBUK
+
+Berikut adalah panduan instalasi aplikasi SIPBUK menggunakan beberapa langkah berikut:
+
+## Langkah 1: Penginstalan dengan Git Clone
+
+Untuk memulai instalasi, Anda perlu mengkloning repositori dengan mendownload pada tautan berikut [Deri-Kurniawan/sipbuk](https://github.com/Deri-Kurniawan/sipbuk/archive/refs/heads/main.zip) atau dari GitHub dengan menggunakan perintah berikut:
+
+```bash filename="Powershell atau CMD" copy
+git clone https://github.com/deri-kurniawan/sipbuk.git
+```
+
+Proses ini akan menyalin seluruh kode dan file yang diperlukan dari repositori ke komputer Anda.
+
+## Langkah 2: Memasuki Folder dan Menginstal Dependensi
+
+Setelah proses pengklonaan selesai, masuk ke dalam folder SIPBUK dengan perintah berikut:
+
+```bash filename="Powershell atau CMD" copy
+cd sipbuk
+```
+
+Selanjutnya, Anda harus menginstal semua dependensi yang diperlukan oleh aplikasi dengan menjalankan perintah berikut:
+
+```bash filename="Powershell atau CMD" copy
+npm install
+```
+
+Perintah di atas akan mengunduh dan menginstal semua paket yang diperlukan yang tercantum dalam berkas package.json.
+
+## Langkah 3: Persiapan Environment Variables
+
+Sebelum menjalankan aplikasi SIPBUK, pastikan Anda sudah menyiapkan environment variables yang diperlukan dengan membuat file **.env** pada root project. Berikut adalah referensi environment variables untuk aplikasi SIPBUK dalam mode development:
+
+```bash filename=".env" copy
+# Nama Aplikasi
+APP_NAME=SIPBUK
+
+# URL Aplikasi untuk development dan production
+APP_URL=http://localhost:3000
+
+# Database URL jika menggunakan MySQL secara online
+DATABASE_URL=mysql://username:password@host:port/database_name?sslaccept=mode
+
+# Akun Google Untuk Pengiriman Email
+NODEMAILER_SERVICE=gmail
+NODEMAILER_USER=name@domain.com
+NODEMAILER_PASS=kata_sandi
+
+# Secret Key untuk enkripsi data dapat diisi dengan string random
+AES_KEY=secret_key
+```
+
+## Langkah 4: Persiapan Database dengan Prisma
+
+Setelah menyiapkan environment variables (konfigurasi database) dengan valid, anda dapat membuat kerangka tabel menggunakan schema yang telah dibuat pada file `prisma/schema.prisma`. Kemudian jalankan perintah berikut untuk membuat kerangka tabel pada database:
+
+```bash filename="Powershell atau CMD" copy
+  npm run db:push
+```
+
+atau dengan menggunakan perintah berikut:
+
+```bash filename="Powershell atau CMD" copy
+  npx prisma db push
+```
+
+## Langkah 5: Persiapan Knowledge Base
+
+Untuk memulai aplikasi SIPBUK, Anda perlu memasukkan data knowledge base yang telah disediakan pada folder `prisma/data`. Kemudian jalankan perintah berikut untuk memasukkan data knowledge base pada database:
+
+```bash filename="Powershell atau CMD" copy
+  npm run db:seed
+```
+
+atau dengan menggunakan perintah berikut:
+
+```bash filename="Powershell atau CMD" copy
+  npx prisma db seed
+```
+
+## Langkah 6: Menjalankan Aplikasi
+
+Setelah semua langkah di atas selesai, Anda dapat menjalankan aplikasi SIPBUK dengan perintah berikut:
+
+```bash filename="Powershell atau CMD" copy
+  npm run dev
+```
+
+## Langkah 7: Membuka Aplikasi
+
+Setelah aplikasi berjalan, Anda dapat membuka aplikasi SIPBUK pada browser dengan mengakses alamat berikut:
+
+```bash filename="Tautan Browser" copy
+  http://localhost:3000
+```
+
+## Langkah 8: Deploy Aplikasi
+
+Saran untuk deploy aplikasi SIPBUK adalah dengan menggunakan Vercel yang tersedia pada dokumentasi resmi Next.js. Anda dapat mengikuti langkah-langkah pada dokumentasi berikut:
+[https://nextjs.org/docs/pages/building-your-application/deploying](https://nextjs.org/docs/pages/building-your-application/deploying#managed-nextjs-with-vercel)
+
+## Akun Default
+
+Berikut adalah akun default yang dapat digunakan untuk mengakses aplikasi SIPBUK:
+
+```bash filename="Akun Default" copy
+  # Akun Pengguna
+  Email: user@sipbuk.com
+  Password: user123
+
+  # Akun Admin
+  Email: admin@sipbuk.com
+  Password: admin123
+```

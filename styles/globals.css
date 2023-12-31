@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+.safe-layout {
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+}
+
+/* container padding x */
+.safe-horizontal-padding {
+  @apply px-[20px] md:px-[50px] lg:px-[119px];
+}

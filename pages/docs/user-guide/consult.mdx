@@ -1,0 +1,45 @@
+import Image from "next/image";
+import consultAnswerQuestionImg from "@/assets/docs/ug-consult-answer-question.png";
+import consultAnswerQuestionSubmitImg from "@/assets/docs/ug-consult-answer-question-submit.png";
+import consultResultImg from "@/assets/docs/ug-consult-result.png";
+
+# Konsultasi
+
+Pada bagian ini merupakan panduan dalam melakukan konsultasi dengan sistem. Silahkan ikuti langkah-langkah berikut ini.
+
+1. Buka halaman utama [SIPBUK](/).
+2. Klik tombol [`Konsultasi`](/consult) pada navigasi atas.
+3. Klik tombol `Mulai` atau langsung geser ke bawah untuk melihat daftar pertanyaan.
+4. Pilih pertanyaan yang sesuai dengan kebutuhan Anda dan Pilih jawaban `Sangat Tidak Yakin` jika pertanyaan tidak relevan dengan kebutuhan Anda.
+
+   <Image
+     className="shadow-lg rounded-lg mt-4 border border-gray-200"
+     src={consultAnswerQuestionImg}
+     width={1080}
+     height={720}
+     alt="Gambar Pertanyaan ke 1 dengan Jawaban Yakin"
+     priority
+   />
+
+5. Setelah memilih jawaban, pada bagian bawah halaman klik tombol `Yakin Dan
+Diagnosis` untuk melihat hasil diagnosis.
+
+   {" "}
+   <Image
+     className="shadow-lg rounded-lg mt-4 border border-gray-200"
+     src={consultAnswerQuestionSubmitImg}
+     width={1080}
+     height={720}
+     alt="Gambar tombol Yakin Dan Diagnosis"
+     priority
+   />
+
+6. Setelah itu akan muncul hasil diagnosis seperti gambar dibawah ini.
+   <Image
+     className="shadow-lg rounded-lg mt-4 border border-gray-200"
+     src={consultResultImg}
+     width={1080}
+     height={720}
+     alt="Gambar  Halaman Hasil Diagnosis"
+     priority
+   />
