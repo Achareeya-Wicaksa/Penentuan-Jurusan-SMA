@@ -71,3 +71,13 @@ model UsersDiagnoseHistory {
   @@index([userId])
   @@index([pestAndDeseaseCode])
 }
+
+model DaftarSiswa {
+  id                   Int                  @id @default(autoincrement())
+  nim                  String                    @unique
+  fullname             String                 @db.VarChar(255)
+  username             String                 @unique
+  password             String
+  nilaiipa             Float                  @default(0)
+  nilaiips             Float                  @default(0)
+}
