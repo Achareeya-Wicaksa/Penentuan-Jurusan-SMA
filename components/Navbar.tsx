@@ -41,7 +41,7 @@ export default function Navbar({ isSticky = true, userFullname = null, role = nu
       icon: "👋",
     });
     deleteCookie("user");
-    router.push("/login");
+    router.push("/");
   }
 
   return (
