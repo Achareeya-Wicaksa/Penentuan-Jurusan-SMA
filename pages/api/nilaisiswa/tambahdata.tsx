@@ -49,8 +49,7 @@ export default async function handler(
                         fullname,
                         username,
                         password,
-                        nilaiipa,
-                        nilaiips,
+                        
                     },
                 });
 
@@ -86,8 +85,7 @@ export default async function handler(
                         fullname,
                         username,
                         password,
-                        nilaiipa,
-                        nilaiips,
+                    
                     },
                 });
 
