@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { method } = req;
-  const { diagnosesId, userId }: { diagnosesId: string[]; userId: string } =
+  const { diagnosesId, userId }: { diagnosesId: string[]; userId: number } =
     req.body;
 
   switch (method) {

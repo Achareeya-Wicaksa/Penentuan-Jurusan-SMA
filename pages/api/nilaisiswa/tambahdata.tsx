@@ -37,7 +37,7 @@ export default async function handler(
     }
 
     const { method } = req;
-    const { nim, fullname, username, password,nilaiipa, nilaiips}: { nim: string, fullname: string, username: string, password: string ,nilaiipa:number,nilaiips:number} = req.body;
+    const { nim, fullname, username, password,nilaiipa, nilaiips}: { nim: string, fullname: string, username: string, password: string ,nilaiipa:string,nilaiips:string} = req.body;
 
     switch (method) {
         case "POST":

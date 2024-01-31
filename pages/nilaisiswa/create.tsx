@@ -86,8 +86,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                     fullname: data.fullname,
                     username: data.nim,
                     password: 'sma1kedungwaru',
-                    nilaiipa: ~~Math.round(data.nilaiipa),
-                    nilaiips: ~~Math.round(data.nilaiips),
+                   
                 }),
             })
         })
