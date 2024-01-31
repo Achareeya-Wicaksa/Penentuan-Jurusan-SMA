@@ -211,7 +211,7 @@ export default function ForgotPassword({
   return (
     <>
       <Head>
-        <title>{`${nextStep ? 'Ubah Kata Sandi' : 'Lupa Kata Sandi'} - SIPBUK`}</title>
+        <title>{`${nextStep ? 'Ubah Kata Sandi' : 'Lupa Kata Sandi'} `}</title>
         <meta
           name="description"
           content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis."

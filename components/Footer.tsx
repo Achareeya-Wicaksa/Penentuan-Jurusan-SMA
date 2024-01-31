@@ -71,13 +71,13 @@ export default function Footer() {
         <div className="pt-8 safe-horizontal-padding">
           <div className="block lg:flex lg:justify-between lg:gap-8">
             <div className="lg:max-w-sm lg:flex-1">
-              <h1 className="text-3xl font-bold font-kodchasan">SIPBUK</h1>
+              <h1 className="text-3xl font-bold font-kodchasan">SMARIDUTA</h1>
               <p className="font-kodchasan font-bold text-[8.5px]">
-                Sistem Pakar Jambu Kristal
+              SMA Negeri 1 Kedungwaru Tulungagung
               </p>
 
               <p className="mt-4 text-base">
-                Membantu anda dalam mengidentifikasi hama dan penyakit pada tanaman jambu kristal.
+                
               </p>
             </div>
 
@@ -118,9 +118,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="py-6 md:py-8 safe-horizontal-padding">
-          <p className="text-center">
-            Copyright &copy;2022-{new Date().getFullYear()} SIPBUK. All rights reserved.
-          </p>
+         
         </div>
       </footer>
     </>

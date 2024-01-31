@@ -53,21 +53,21 @@ export default async function handler(
                 if (!createSymptom) {
                     return res.status(404).json({
                         code: 404,
-                        message: "Data gejala gagal disimpan",
+                        message: "Data Pertanyaan gagal disimpan",
                     });
                 }
 
                 await prisma.$disconnect();
                 res.status(200).json({
                     code: 200,
-                    message: "Berhasil menyimpan data gejala",
+                    message: "Berhasil menyimpan data Pertanyaan",
                     data: createSymptom,
                 });
             } catch (error) {
                 console.error(error);
                 res.status(500).json({
                     code: 500,
-                    message: "Gagal menyimpan data gejala",
+                    message: "Gagal menyimpan data Pertanyaan",
                 });
             }
             break;
@@ -86,21 +86,21 @@ export default async function handler(
                 if (!updateSymptom) {
                     return res.status(404).json({
                         code: 404,
-                        message: "Data gejala gagal diperbarui",
+                        message: "Data Pertanyaan gagal diperbarui",
                     });
                 }
 
                 await prisma.$disconnect();
                 res.status(200).json({
                     code: 200,
-                    message: "Berhasil mengubah data gejala",
+                    message: "Berhasil mengubah data Pertanyaan",
                     data: updateSymptom,
                 });
             } catch (error) {
                 console.error(error);
                 res.status(500).json({
                     code: 500,
-                    message: "Gagal mengubah data gejala",
+                    message: "Gagal mengubah data Pertanyaan",
                 });
             }
             break;
@@ -117,7 +117,7 @@ export default async function handler(
                 if (!symptomsOnPestsAndDeseasesHasSymptoms) {
                     return res.status(404).json({
                         code: 404,
-                        message: "Gejala tidak ditemukan",
+                        message: "Pertanyaan tidak ditemukan",
                     });
                 }
 
@@ -132,7 +132,7 @@ export default async function handler(
                 if (!deleteSymptom) {
                     return res.status(404).json({
                         code: 404,
-                        message: "Gejala tidak ditemukan",
+                        message: "Pertanyaan tidak ditemukan",
                     });
                 }
 
@@ -142,14 +142,14 @@ export default async function handler(
 
                 res.status(200).json({
                     code: 200,
-                    message: "Berhasil menghapus Gejala",
+                    message: "Berhasil menghapus Pertanyaan",
                     data: symptomsOnPestsAndDeseasesHasSymptoms,
                 });
             } catch (error) {
                 console.error(error);
                 res.status(500).json({
                     code: 500,
-                    message: "Gagal menghapus Gejala",
+                    message: "Gagal menghapus Pertanyaan",
                 });
             }
             break;

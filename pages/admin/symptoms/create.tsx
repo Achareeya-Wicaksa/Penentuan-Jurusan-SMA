@@ -109,7 +109,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
     return (
         <>
             <Head>
-                <title>Tambah Data Gejala - SIPBUK Admin</title>
+                <title>Tambah Data pertanyaan </title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -125,17 +125,17 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                         <li>
                             <Link href="/admin/symptoms">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                                Data Gejala
+                                Data pertanyaan
                             </Link>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Tambah Data Gejala
+                            Tambah Data pertanyaan
                         </li>
                     </ul>
                 </div>
                 <h4 className="mt-1 mb-2 text-xl font-bold">
-                    Tambah Data Gejala
+                    Tambah Data pertanyaan
                 </h4>
                 <div className="mt-2">
                     <form onSubmit={onSubmitHandler} ref={formRef} encType='multipart/form-data'>

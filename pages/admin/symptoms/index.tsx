@@ -124,7 +124,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
     return (
         <>
             <Head>
-                <title>Data Gejala - SIPBUK Admin</title>
+                <title>Data pertanyaan Admin</title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -139,13 +139,13 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                            Data Gejala
+                            Data pertanyaan
                         </li>
                     </ul>
                 </div>
                 <div className="flex flex-col flex-wrap items-start justify-between lg:items-center lg:flex-row">
                     <h4 className="mb-2 text-xl font-bold">
-                        Data Gejala
+                        Data pertanyaan
                     </h4>
                     <div className='flex flex-row-reverse items-center justify-center gap-4 lg:flex-row'>
                         {selectedSymptoms.length > 0 && (
@@ -208,7 +208,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                 )) : (
                                     <tr>
                                         <td colSpan={5} className="text-center">
-                                            <div className="text-gray-500">Tidak ada data Gejala</div>
+                                            <div className="text-gray-500">Tidak ada data pertanyaan</div>
                                         </td>
                                     </tr>
                                 )}

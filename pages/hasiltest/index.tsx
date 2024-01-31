@@ -40,7 +40,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
             }
         }
 
-        const symptoms = await prisma.daftarSiswa.findMany()
+        const symptoms = await prisma.usersDiagnoseHistory.findMany()
 
         return {
             props: {
@@ -124,7 +124,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
     return (
         <>
             <Head>
-                <title>Data nilai siswa</title>
+                <title>hasil test</title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -139,22 +139,22 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                            Data nilai siswa
+                            Hasil Test Siswa
                         </li>
                     </ul>
                 </div>
                 <div className="flex flex-col flex-wrap items-start justify-between lg:items-center lg:flex-row">
                     <h4 className="mb-2 text-xl font-bold">
-                        Data pertanyaan
+                        Hasil Test Siswa
                     </h4>
                     <div className='flex flex-row-reverse items-center justify-center gap-4 lg:flex-row'>
                         {selectedSymptoms.length > 0 && (
                             <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedSymptoms} disabled={fetchIsLoading}>Hapus {selectedSymptoms.length} Data</button>
                         )}
-                        <Link className="btn btn-primary" href="/nilaisiswa/create"><BsPlus size={24} />Tambah Data</Link>
+                        
                     </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 pt-10">
                     <div className="w-full overflow-x-auto">
                         <table className="table w-full">
                             <thead>
@@ -168,9 +168,9 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                     </th>
                                     <th>Nim</th>
                                     <th>Nama Lengkap</th>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>Nilai Ipa</th>
+                                    <th>Total nilai jumlah perhitungan</th>
+                                    <th>Jawaban yang dipilih</th>
+                                    <th>Hasil Prediksi</th>
                                     <th>Nilai IPS</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -185,13 +185,13 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                                 } disabled={fetchIsLoading} />
                                             </label>
                                         </th>
-                                        <td>{`${symptom.nim}`}</td>
+                                        <td>{`${symptom.userId}`}</td>
                                         <td>
-                                        {`${symptom.fullname}`}
+                                        {`${symptom.nama}`}
                                         </td>
-                                        <td>{symptom.username}</td>
-                                        <td>{symptom.password}</td>
-                                        <td>{symptom.nilaiipa}</td>
+                                        <td>{symptom.finalCF}</td>
+                                        <td>{symptom.userInputData}</td>
+                                        <td>{symptom.pestAndDeseaseCode}</td>
                                         <td>{symptom.nilaiips}</td>
                                         <td>
                                             <div className='flex flex-row items-center justify-start gap-2'>
@@ -202,7 +202,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                 )) : (
                                     <tr>
                                         <td colSpan={5} className="text-center">
-                                            <div className="text-gray-500">Tidak ada data pertanyaan</div>
+                                            <div className="text-gray-500">Tidak ada Hasil Test Siswa</div>
                                         </td>
                                     </tr>
                                 )}

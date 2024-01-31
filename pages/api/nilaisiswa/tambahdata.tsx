@@ -37,7 +37,7 @@ export default async function handler(
     }
 
     const { method } = req;
-    const { nim, fullname, username, password}: { nim: number, fullname: string, username: string, password: string } = req.body;
+    const { nim, fullname, username, password,nilaiipa, nilaiips}: { nim: string, fullname: string, username: string, password: string ,nilaiipa:number,nilaiips:number} = req.body;
 
     switch (method) {
         case "POST":
@@ -49,6 +49,8 @@ export default async function handler(
                         fullname,
                         username,
                         password,
+                        nilaiipa,
+                        nilaiips,
                     },
                 });
 
@@ -77,13 +79,15 @@ export default async function handler(
             try {
                 const updateSymptom = await prisma.daftarSiswa.update({
                     where: {
-                        nim: parseInt(req.body.symptomCode),
+                        id: parseInt(req.body.symptomCode),
                     },
                     data: {
                         nim,
                         fullname,
                         username,
                         password,
+                        nilaiipa,
+                        nilaiips,
                     },
                 });
 
@@ -104,15 +108,15 @@ export default async function handler(
                 console.error(error);
                 res.status(500).json({
                     code: 500,
-                    message: "Gagal mengubah data gejala",
+                    message: "Gagal mengubah data pertanyaan",
                 });
             }
             break;
         case "DELETE":
             try {
-                const symptomsOnPestsAndDeseasesHasSymptoms = await prisma.pestsAndDeseasesHasSymptoms.deleteMany({
+                const symptomsOnPestsAndDeseasesHasSymptoms = await prisma.daftarSiswa.deleteMany({
                     where: {
-                        symptomCode: {
+                        id: {
                             in: req.body.selectedSymptoms,
                         }
                     }
@@ -125,9 +129,9 @@ export default async function handler(
                     });
                 }
 
-                const deleteSymptom = await prisma.symptoms.deleteMany({
+                const deleteSymptom = await prisma.daftarSiswa.deleteMany({
                     where: {
-                        code: {
+                        id: {
                             in: req.body.selectedSymptoms,
                         },
                     },

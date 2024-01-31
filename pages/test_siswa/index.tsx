@@ -42,17 +42,17 @@ export default function Login({ AES_KEY }: LoginProps) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const { email, password } = Object.fromEntries(formData.entries());
+    const { username, password } = Object.fromEntries(formData.entries());
 
     (async () => {
       const payload = JSON.stringify({
-        email,
-        password: clientSideAESEncrypt(password.toString() || '', AES_KEY),
+        username,
+        password,
       })
 
       try {
         setFetchIsLoading(true);
-        const loginFetcher = await fetch('/api/auth/login', {
+        const loginFetcher = await fetch('/api/loginsiswa', {
           method: 'POST',
           body: payload,
           headers: {
@@ -121,7 +121,7 @@ export default function Login({ AES_KEY }: LoginProps) {
   return (
     <>
       <Head>
-        <title>Masuk - SIPBUK</title>
+        <title>Masuk </title>
         <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
       </Head>
       <Navbar />
@@ -142,14 +142,14 @@ export default function Login({ AES_KEY }: LoginProps) {
             <form onSubmit={handleFormSubmit}>
               {/* email */}
               <div className="w-full max-w-xl form-control">
-                <label className="label" htmlFor="email">
-                  <span className="text-base label-text">Email</span>
+                <label className="label" htmlFor="username">
+                  <span className="text-base label-text">Username</span>
                 </label>
                 <input
-                  type="email"
+                  type="username"
                   className="w-full input input-bordered"
-                  name="email"
-                  id="email"
+                  name="username"
+                  id="username"
                   placeholder=""
                   disabled={fetchIsLoading}
                 />
@@ -161,7 +161,7 @@ export default function Login({ AES_KEY }: LoginProps) {
                   <span className="text-base label-text">Kata sandi</span>
                 </label>
                 <input
-                  type="password"
+                  type="te"
                   className="w-full input input-bordered"
                   name="password"
                   id="password"

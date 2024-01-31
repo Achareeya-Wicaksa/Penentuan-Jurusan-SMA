@@ -93,7 +93,7 @@ export default function EmailVerification({ imageSrc, title, message }: EmailVer
     return (
         <>
             <Head>
-                <title>{`${title} - SIPBUK`}</title>
+                <title>{`${title} `}</title>
             </Head>
             <Navbar />
             <main>

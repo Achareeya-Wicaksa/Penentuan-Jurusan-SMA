@@ -56,6 +56,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         const pestsAndDeseasesCount = await prisma.pestsAndDeseases.count()
         const symptomsCount = await prisma.symptoms.count()
         const usersCount = await prisma.user.count()
+        const siswaCount = await prisma.daftarSiswa.count()
         const usersDiagnosesHistoryCount = await prisma.usersDiagnoseHistory.count()
 
         return {
@@ -64,6 +65,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
                 symptomsCount,
                 usersCount,
                 usersDiagnosesHistoryCount,
+                siswaCount,
                 user: userCookie,
             }
         }
@@ -84,9 +86,10 @@ type AdminProps = {
     symptomsCount: number;
     usersCount: number;
     usersDiagnosesHistoryCount: number;
+    siswaCount: number;
 }
 
-const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDiagnosesHistoryCount }: AdminProps) => (
+const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDiagnosesHistoryCount, siswaCount }: AdminProps) => (
     <>
         <Head>
             <title>Dashboard - SIPBUK Admin</title>
@@ -114,7 +117,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                                 <span style={{ "--value": pestsAndDeseasesCount }}></span>
                             </span>
                         </h2>
-                        <p className='font-bold'>Total Data Hama dan Penyakit</p>
+                        <p className='font-bold'>Manajemen Jurusan</p>
                         <div className="justify-end card-actions">
                             <Link href="/admin/pests-deseases" className="btn btn-primary">Lihat</Link>
                         </div>
@@ -128,23 +131,28 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                                 <span style={{ "--value": symptomsCount }}></span>
                             </span>
                         </h2>
-                        <p className='font-bold'>Total Data Gejala</p>
+                        <p className='font-bold'>Manajemen Pertanyaan dan perpoinan Test Minat & Bakat</p>
                         <div className="justify-end card-actions">
                             <Link href="/admin/symptoms" className="btn btn-primary">Lihat</Link>
                         </div>
                     </div>
                 </div>
+                
                 <div className="shadow-xl card bg-base-100">
                     <div className="card-body">
                         <h2 className="card-title">
                             <span className="font-mono text-6xl font-bold countdown">
                                 {/* @ts-ignore */}
-                                <span style={{ "--value": usersCount }}></span>
+                                <span style={{ "--value": siswaCount }}></span>
                             </span>
                         </h2>
-                        <p className='font-bold'>Total Siswa</p>
+                        <p className='font-bold'>Manajemen akun dan nilai Siswa</p>
+                        <div className="justify-end card-actions">
+                            <Link href="/nilaisiswa" className="btn btn-primary">Lihat</Link>
+                        </div>
                     </div>
                 </div>
+                
                 <div className="shadow-xl card bg-base-100">
                     <div className="card-body">
                         <h2 className="card-title">
@@ -155,7 +163,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                         </h2>
                         <p className='font-bold'>Hasil Siswa yang telah mengerjakan</p>
                         <div className="justify-end card-actions">
-                            <Link href="/test_siswa" className="btn btn-primary">Lihat</Link>
+                            <Link href="/hasiltest" className="btn btn-primary">Lihat</Link>
                         </div>
                     </div>
                 </div>

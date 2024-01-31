@@ -230,7 +230,7 @@ export default function Dashboard({ user, _userDiagnosesHistory }: DashboardProp
     return (
         <>
             <Head>
-                <title>Dashboard - SIPBUK Pengguna</title>
+                <title>Dashboard </title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar userFullname={user.fullname} role={user?.role} />

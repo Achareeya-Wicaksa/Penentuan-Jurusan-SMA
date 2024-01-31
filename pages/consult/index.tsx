@@ -3,7 +3,7 @@ import Question from "@/components/Question";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { FormEventHandler, Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Head from "next/head";
-import { getCookie, hasCookie } from "cookies-next";
+import { getCookie, hasCookie , deleteCookie} from "cookies-next";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -14,6 +14,16 @@ import prisma from "@/prisma";
 
 export async function getServerSideProps({ req, res }: getServerSidePropsType) {
   const isCookieExist = hasCookie("user", { req, res });
+  const hasLoggedIn = hasCookie("user", { req, res });
+
+  if (!hasLoggedIn) {
+    return {
+        redirect: {
+            destination: '/test_siswa?code=403',
+            permanent: true,
+        }
+    }
+}
 
   const fetchSymptoms = await prisma.symptoms.findMany({
     orderBy: {
@@ -48,6 +58,8 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
       }
     };
   }
+
+  
 }
 
 interface ConsultProps {
@@ -109,7 +121,8 @@ export default function Consult({ user, questionList }: ConsultProps) {
         },
         body: JSON.stringify({
           data: remapDataToObject,
-          userId: user === null ? "" : user.id,
+          userId: user === null ? "" : ~~user.nim,
+          fullName: user === null ? "" : user.fullname,
         }),
       })
     });
@@ -303,7 +316,7 @@ export default function Consult({ user, questionList }: ConsultProps) {
   return (
     <>
       <Head>
-        <title>Konsultasi - SIPBUK</title>
+        <title></title>
         <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
       </Head>
       <Navbar isSticky={false} userFullname={user?.fullname} role={user?.role} />

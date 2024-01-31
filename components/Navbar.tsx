@@ -53,9 +53,9 @@ export default function Navbar({ isSticky = true, userFullname = null, role = nu
             href="/"
             className="relative text-transparent transition-colors duration-300 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text hover:from-green-400 hover:to-green-400 hover:transition-transform hover:duration-1000"
           >
-            <h1 className="text-4xl font-bold font-kodchasan">SIPBUK</h1>
+            <h1 className="text-4xl font-bold font-kodchasan">SMARIDUTA</h1>
             <p className="font-kodchasan font-bold text-[10px]">
-              Sistem Pakar Jambu Kristal
+              SMA Negeri 1 Kedungwaru Tulungagung
             </p>
           </Link>
 

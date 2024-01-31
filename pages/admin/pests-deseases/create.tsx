@@ -122,7 +122,7 @@ const AdminCreatePestOrDesease = ({ user }: AdminCreateProps) => {
     return (
         <>
             <Head>
-                <title>Tambah Data Hama atau Penyakit - SIPBUK Admin</title>
+                <title>Tambah Data penjurusan</title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -138,23 +138,23 @@ const AdminCreatePestOrDesease = ({ user }: AdminCreateProps) => {
                         <li>
                             <Link href="/admin/pests-deseases">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                                Data Hama dan Penyakit
+                                Data jurusan
                             </Link>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Tambah Data Hama atau Penyakit
+                            Tambah penjurusan
                         </li>
                     </ul>
                 </div>
                 <h4 className="mt-1 mb-2 text-xl font-bold">
-                    Tambah Data Hama atau Penyakit
+                    Tambah penjurusan
                 </h4>
                 <div className="mt-2">
                     <form onSubmit={onSubmitHandler} ref={formRef}>
                         <div className="form-control">
                             <label className="label" htmlFor='name'>
-                                <span className="label-text">Nama Hama atau Penyakit</span>
+                                <span className="label-text">Nama jurusan</span>
                             </label>
                             <label className="input-group">
                                 <input type="text" name="name" placeholder="Nama ... atau Hama ..." className="w-full input input-bordered" id='name' required disabled={fetchIsLoading} />

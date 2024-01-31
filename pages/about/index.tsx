@@ -37,7 +37,7 @@ export default function About({ user }: AboutProps) {
   return (
     <>
       <Head>
-        <title>Tentang - SIPBUK</title>
+        <title>Tentang </title>
         <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
       </Head>
       <Navbar userFullname={user?.fullname} role={user?.role} />
@@ -45,15 +45,20 @@ export default function About({ user }: AboutProps) {
         {/* about the app */}
         <div className="h-full md:h-[482px] bg-primary rounded-2xl flex flex-col justify-center items-center p-8 md:p-6 mb-[112px] lg:mb-[172px]">
           <h2 className="text-center leading-[38px] md:leading-[48px] text-[30px] md:text-[40px] font-bold mb-4">
-            Tentang Aplikasi SIPBUK
+            Tentang SMA 1 Kedungwaru 
           </h2>
           <p className="text-center text-base leading-[24px] max-w-[660px]">
-            Aplikasi Sistem Pakar Diagnosis Hama dan Penyakit pada Tanaman Jambu
-            Kristal dengan Metode Certainty Factor adalah sebuah aplikasi yang
-            dikembangkan untuk membantu petani dalam mengidentifikasi hama dan
-            penyakit pada tanaman jambu kristal. Aplikasi ini menggunakan metode
-            certainty factor sebagai dasar untuk membuat keputusan dalam proses
-            diagnosis.
+          Website SMA 1 Kedungwaru dirancang dengan tujuan utama untuk menyediakan 
+          berbagai informasi penting kepada siswa, orang tua, dan masyarakat umum. 
+          Melalui platform ini, pengguna dapat mengakses berita terkini seputar kegiatan
+           sekolah, prestasi siswa, dan berbagai peristiwa penting lainnya. Selain itu, 
+           website ini juga menjadi sarana yang efektif untuk memberikan informasi mengenai 
+           proses penjurusan sesuai dengan peraturan sekolah. Dengan demikian, siswa dapat 
+           memperoleh pemahaman yang jelas mengenai langkah-langkah dan persyaratan yang harus 
+           dipenuhi dalam memilih jurusan. Keseluruhan, website SMA 1 Kedungwaru bertindak sebagai 
+           wadah komunikasi yang transparan antara sekolah, siswa, dan orang tua guna meningkatkan
+            pemahaman dan partisipasi dalam kehidupan pendidikan di sekolah tersebut.
+
           </p>
         </div>
 
@@ -62,7 +67,7 @@ export default function About({ user }: AboutProps) {
           {/* image */}
           <div className="col-span-2 md:col-span-1">
             <Image
-              src={expertImg}
+              src={''}
               className="object-cover md:h-[332px] md:w-[380px] lg:h-auto lg:w-[480px] bg-primary rounded-2xl"
               alt=""
             />
@@ -71,33 +76,24 @@ export default function About({ user }: AboutProps) {
           <div className="col-span-2 md:col-span-1">
             <div className="text-base lg:text-xl">
               <h3 className="font-bold text-2xl md:text-3xl leading-[37px] md:leading-[48px] mb-4">
-                Tentang Pakar
+                Kepala Sekolah
               </h3>
               <table className="mb-4 text-left">
                 <tbody>
                   <tr className="align-text-top">
                     <th>Nama</th>
                     <td className="px-2">:</td>
-                    <td>Bambang Ismail</td>
+                    <td>xx</td>
                   </tr>
+                  
                   <tr className="align-text-top">
-                    <th>Pekerjaan</th>
-                    <td className="px-2">:</td>
-                    <td>
-                      Penyuluh Pertanian Lapangan & Pembina Tanaman Jambu
-                      Kristal
-                    </td>
-                  </tr>
-                  <tr className="align-text-top">
-                    <th>Pengalaman</th>
+                    <th>Biodata singkat</th>
                     <td className="px-2">:</td>
                   </tr>
                 </tbody>
               </table>
               <p>
-                Memiliki pengalaman dibidang budidaya tanaman jambu kristal di
-                Desa Sukamanah, Kecamatan Gegerbitung, Kabupaten Sukabumi pada
-                tahun 2015.
+                xxx
               </p>
             </div>
           </div>
@@ -108,7 +104,7 @@ export default function About({ user }: AboutProps) {
           {/* image */}
           <div className="flex justify-start col-span-2 md:col-span-1 md:order-last md:justify-end">
             <Image
-              src={developerImg}
+              src={''}
               className="lg:max-h-[432px] object-cover md:h-[332px] md:w-[380px] lg:h-auto lg:w-[480px] bg-primary rounded-2xl"
               alt=""
             />
@@ -124,7 +120,7 @@ export default function About({ user }: AboutProps) {
                   <tr className="align-text-top">
                     <th>Nama</th>
                     <td className="px-2">:</td>
-                    <td>Deri Kurniawan</td>
+                    <td>Achareeya Wicaksa PP</td>
                   </tr>
                   <tr className="align-text-top">
                     <th>Pekerjaan</th>
@@ -132,14 +128,14 @@ export default function About({ user }: AboutProps) {
                     <td>Mahasiswa</td>
                   </tr>
                   <tr className="align-text-top">
-                    <th>Tugas</th>
+                    <th>Biodata Singkat</th>
                     <td className="px-2">:</td>
                   </tr>
                 </tbody>
               </table>
               <p>
                 Sebagai pengembang aplikasi dan juga seorang knowledge engineer
-                dari aplikasi SIPBUK.
+                dari aplikasi .
               </p>
             </div>
           </div>

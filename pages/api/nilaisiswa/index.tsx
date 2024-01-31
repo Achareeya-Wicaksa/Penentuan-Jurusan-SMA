@@ -14,36 +14,22 @@ export default async function handler(
       const regenerateTemp: any[] = [];
 
       if (findManyUsersDiagnosesHistories.length > 0) {
-        await Promise.all(
-          findManyUsersDiagnosesHistories.map(async (item) => {
-            const CFInstance = await new CertaintyFactor(
-              //@ts-ignore
-              JSON.parse(item.userInputData)
-            ).generateConclusion();
-
-            const conclusion = await CFInstance.conclusion;
-            const userInputData = await CFInstance.userInputData;
-
-            regenerateTemp.push({
-              id: item.id,
-              userId: item.nim,
-              pestAndDeseaseCode: conclusion.fullname,
-              finalCF: conclusion.username,
-              //userInputData: JSON.stringify(userInputData),
-            });
-          })
-        );
+        
 
         await Promise.all(
           regenerateTemp.map(async (item) => {
-            await prisma.usersDiagnoseHistory.update({
+            await prisma.daftarSiswa.update({
               where: {
                 id: item.id,
               },
               data: {
-                pestAndDeseaseCode: item.pestAndDeseaseCode,
-                finalCF: item.finalCF,
-                userInputData: item.userInputData,
+              
+              nim: item.nim,
+              fullname: item.fullname,
+              username: item.username,
+              password: item.password,
+              nilaiipa: item.nilaiipa,
+              nilaiips: item.nilaiips,
               },
             });
           })

@@ -62,7 +62,7 @@ type AdminCreateProps = {
 
 const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
-    const [selectedImageUrl, setSelectedImageUrl] = useState<any>("https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp");
+    const [selectedImageUrl, setSelectedImageUrl] = useState<any>("");
     const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
@@ -86,6 +86,8 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                     fullname: data.fullname,
                     username: data.nim,
                     password: 'sma1kedungwaru',
+                    nilaiipa: ~~Math.round(data.nilaiipa),
+                    nilaiips: ~~Math.round(data.nilaiips),
                 }),
             })
         })
@@ -111,7 +113,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
     return (
         <>
             <Head>
-                <title>Tambah Data Gejala - SIPBUK Admin</title>
+                <title>Tambah Data Siswa</title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -127,17 +129,17 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                         <li>
                             <Link href="/admin/symptoms">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                                Data Gejala
+                                Data Siswa
                             </Link>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Tambah Data Gejala
+                            Tambah Data Siswa
                         </li>
                     </ul>
                 </div>
                 <h4 className="mt-1 mb-2 text-xl font-bold">
-                    Tambah Data Gejala
+                    Tambah Data Siswa
                 </h4>
                 <div className="mt-16">
                     <form onSubmit={onSubmitHandler} ref={formRef} encType='multipart/form-data'>
@@ -158,6 +160,22 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                                     </label>
                                     <label className="rounded-md input-group">
                                         <input type="text" name="fullname" placeholder="Nama Lengkap Siswa" className="w-full input input-bordered" id='fullname' required disabled={fetchIsLoading} />
+                                    </label>
+                                </div>
+                                <div className="form-control">
+                                    <label className="label" htmlFor='nilaiipa'>
+                                        <span className="label-text">Nilai IPA </span>
+                                    </label>
+                                    <label className="rounded-md input-group">
+                                        <input type="text" name="nilaiipa" placeholder="Nilai IPA" className="w-full input input-bordered" id='nilaiipa' required disabled={fetchIsLoading} />
+                                    </label>
+                                </div>
+                                <div className="form-control">
+                                    <label className="label" htmlFor='nilaiips'>
+                                        <span className="label-text">Nilai IPS </span>
+                                    </label>
+                                    <label className="rounded-md input-group">
+                                        <input type="text" name="nilaiips" placeholder="Nilai IPS" className="w-full input input-bordered" id='nilaiips' required disabled={fetchIsLoading} />
                                     </label>
                                 </div>
                                 

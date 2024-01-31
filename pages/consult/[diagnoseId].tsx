@@ -115,7 +115,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
     return (
         <>
             <Head>
-                <title>Hasil Konsultasi - SIPBUK</title>
+                <title>Hasil test</title>
                 <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
             </Head>
             <Navbar isSticky={true} userFullname={user?.fullname} role={user?.role} />
@@ -125,17 +125,17 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                         Hasil Diagnosis
                     </h2>
                     <p className="text-center text-base leading-[24px] max-w-[660px]">
-                        Hasil Diagnosis menunjukan bahwa Tanaman Jambu Kristal anda, terdiagnosis terkena <b className='capitalize'>{diagnoseHistory.pestsAndDeseases.name}</b> dengan tingkat <b>Akurasi {getAccurationLevel(diagnoseHistory.finalCF)}</b> sebesar <b>{getPercentageAccuration(diagnoseHistory.finalCF)}</b>
+                        Hasil Diagnosis menunjukan bahwa anda cocok pada <b className='capitalize'>{diagnoseHistory.pestsAndDeseases.name}</b> dengan tingkat <b>Akurasi {getAccurationLevel(diagnoseHistory.finalCF)}</b> sebesar <b>{getPercentageAccuration(diagnoseHistory.finalCF)}</b>
                     </p>
                     <a href="#solusi" className="mt-5 btn btn-active btn-ghost">Lihat Solusi</a>
                 </div>
 
                 <section id='solusi' className='pt-20'>
                     <h2 className="text-center leading-[38px] md:leading-[48px] text-[30px] md:text-[40px] font-bold mb-4">
-                        Solusi
+                        test
                     </h2>
                     <p className="text-center text-base leading-[24px] max-w-[660px] m-auto mb-2">
-                        Berikut merupakan cara pengendalian, serta bahan aktif yang dapat anda gunakan
+                        Berikut hasil
                     </p>
                     <p className='text-center text-base leading-[24px] max-w-[660px] m-auto mb-10 text-gray-500'>Terakhir diperbarui pada {new Date(diagnoseHistory.pestsAndDeseases.updatedAt).toLocaleDateString("id-ID", {
                         weekday: "long",
@@ -146,24 +146,24 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                     <div className='flex flex-col gap-0 lg:gap-3 lg:flex-row'>
                         <div className='flex-grow'>
                             <h3 className="text-center leading-[38px] md:leading-[48px] text-[20px] md:text-[30px] font-bold mb-4">
-                                Cara Pengendalian
+                                diisi
                             </h3>
                             <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
-                                Untuk pengendalian {diagnoseHistory.pestsAndDeseases.name} pada tanaman jambu kristal, ada beberapa langkah yang dapat dilakukan, antara lain:
+                                diisi admin
                             </p>
                             <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.pestsAndDeseases.solution }}></div>
                         </div>
                         <div className="hidden divider lg:flex lg:divider-horizontal">
-                            Solusi
+                            disi admin
                         </div>
                         <div className="flex divider lg:hidden lg:divider-horizontal">
                         </div>
                         <div>
                             <h3 className="text-center leading-[38px] md:leading-[48px] text-[20px] md:text-[30px] font-bold mb-4">
-                                Bahan Aktif
+                            ''
                             </h3>
                             <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
-                                Penggunaan bahan aktif untuk pengendalian {diagnoseHistory.pestsAndDeseases.name} pada tanaman jambu kristal yang dapat anda gunakan diantaranya:
+                                ''
                             </p>
                             <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.pestsAndDeseases.activeIngredient }}></div>
                         </div>
@@ -174,7 +174,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                     <input type="checkbox" className="peer" />
 
                     <div className="text-xl font-medium collapse-title">
-                        Persentase Kemungkinan Penyakit Lainnya
+                        Persentase 
                     </div>
                     <div className="collapse-content">
                         <div className="overflow-x-auto">
@@ -182,7 +182,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
-                                        <th>Nama Hama dan Penyakit</th>
+                                        <th>Nama jurusan</th>
                                         <th>Persentase</th>
                                         <th>Keterangan</th>
                                     </tr>
