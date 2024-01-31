@@ -34,7 +34,7 @@ export default function Question({
           Pertanyaan ke {++index}
         </div>
         <h2 className="text-lg font-bold mb-[10px]">
-          Apakah gejala berikut ada pada tanaman anda?
+          Apakah pernyataan ini cocok dengan anda?
         </h2>
         <h3 className="mb-4 text-3xl font-bold">{question}</h3>
         <p className="mb-4 text-sm text-red-500">
