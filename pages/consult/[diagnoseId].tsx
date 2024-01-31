@@ -160,10 +160,10 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                         </div>
                         <div>
                             <h3 className="text-center leading-[38px] md:leading-[48px] text-[20px] md:text-[30px] font-bold mb-4">
-                            ''
+                            test
                             </h3>
                             <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
-                                ''
+                                test
                             </p>
                             <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.pestsAndDeseases.activeIngredient }}></div>
                         </div>
