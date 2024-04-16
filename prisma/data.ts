@@ -436,12 +436,11 @@ export const pestsAndDeseasesRawData = [
 ];
 
 export const uncertaintyValueRawData = [
-  { label: "Sangat Yakin", value: 1 },
-  { label: "Yakin", value: 0.8 },
-  { label: "Cukup Yakin", value: 0.6 },
-  { label: "Sedikit Yakin", value: 0.4 },
-  { label: "Tidak Yakin", value: 0.2 },
-  { label: "Sangat Tidak Yakin", value: 0 },
+  { label: "Sangat Yakin", value: 0.9 },
+  { label: "Yakin", value: 0.6 },
+  { label: "Sedikit Yakin", value: 0.2 },
+  { label: "Tidak Yakin", value: -0.4 },
+  { label: "Sangat Tidak Yakin", value: -0.8 },
 ];
 
 export const pestsAndDeseasesHasSymptomsRawData = [

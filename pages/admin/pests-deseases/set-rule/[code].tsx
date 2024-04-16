@@ -264,13 +264,11 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
                                             </td>
                                             <td>{symptom.info}</td>
                                             <td>
-                                                <select className="w-full max-w-xs select select-bordered" name={symptom.code} disabled={selectedSymptomData.find((v) => v === symptom.code) ? false : true} defaultValue={
+                                                <input type="text" id={`modal-${symptom.code}`}  className="input input-bordered input-info w-full max-w-xs" name={symptom.code} disabled={selectedSymptomData.find((v) => v === symptom.code) ? false : true} defaultValue={
                                                     selectedSymptomDataCF.find((v, i) => i === selectedSymptomData.findIndex((v) => v === symptom.code)) ? selectedSymptomDataCF.find((v, i) => i === selectedSymptomData.findIndex((v) => v === symptom.code)) : 0
-                                                }>
-                                                    {[...uncertaintyValueRawData].sort((a, b) => a.value - b.value).slice(1).map((item, index) => (
-                                                        <option key={index} value={item.value}>{item.label}</option>
-                                                    ))}
-                                                </select>
+                                                }/>
+                                                    
+                                                
                                             </td>
                                         </tr>
                                     ))}
