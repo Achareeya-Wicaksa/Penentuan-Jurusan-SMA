@@ -15,7 +15,7 @@ export default async function handler(
   if ((userCookie && userCookie.role !== "admin") || !userCookie) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: "/login",
         permanent: true,
       },
     };
@@ -45,7 +45,7 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        const createPestOrDesease = await prisma.pestsAndDeseases.create({
+        const createPestOrDesease = await prisma.jurusan.create({
           // @ts-ignore
           data: {
             name,
@@ -79,7 +79,7 @@ export default async function handler(
     case "PUT":
       try {
         const { pestOrDeseaseCode, data }: any = req.body;
-        const updatePestOrDesease = await prisma.pestsAndDeseases.update({
+        const updatePestOrDesease = await prisma.jurusan.update({
           where: {
             code: parseInt(pestOrDeseaseCode),
           },
@@ -93,7 +93,7 @@ export default async function handler(
         if (!updatePestOrDesease) {
           res.status(404).json({
             code: 404,
-            message: "Hama dan Penyakit tidak ditemukan",
+            message: "tidak ditemukan",
           });
         }
 
@@ -101,20 +101,20 @@ export default async function handler(
 
         res.status(200).json({
           code: 200,
-          message: "Berhasil mengubah Hama dan Penyakit",
+          message: "Berhasil mengubah",
           data: updatePestOrDesease,
         });
       } catch (error) {
         console.error(error);
         res.status(500).json({
           code: 500,
-          message: "Gagal mengubah Hama dan Penyakit",
+          message: "Gagal mengubah",
         });
       }
       break;
     case "DELETE":
       try {
-        await prisma.pestsAndDeseasesHasSymptoms.deleteMany({
+        await prisma.rules.deleteMany({
           where: {
             pestAndDeseaseCode: {
               in: req.body.selectedPestsDeseases,
@@ -122,15 +122,8 @@ export default async function handler(
           },
         });
 
-        await prisma.usersDiagnoseHistory.deleteMany({
-          where: {
-            pestAndDeseaseCode: {
-              in: req.body.selectedPestsDeseases,
-            },
-          },
-        });
 
-        const deletePestOrDesease = await prisma.pestsAndDeseases.deleteMany({
+        const deletePestOrDesease = await prisma.jurusan.deleteMany({
           where: {
             code: {
               in: req.body.selectedPestsDeseases,
@@ -141,12 +134,12 @@ export default async function handler(
         if (!deletePestOrDesease) {
           res.status(404).json({
             code: 404,
-            message: "Hama dan Penyakit tidak ditemukan",
+            message: "tidak ditemukan",
           });
 
           return res.status(404).json({
             code: 404,
-            message: "Hama dan Penyakit tidak ditemukan",
+            message: "tidak ditemukan",
           });
         }
 
@@ -154,14 +147,14 @@ export default async function handler(
 
         res.status(200).json({
           code: 200,
-          message: "Berhasil menghapus Hama dan Penyakit",
+          message: "Berhasil menghapus",
           data: deletePestOrDesease,
         });
       } catch (error) {
         console.error(error);
         res.status(500).json({
           code: 500,
-          message: "Gagal menghapus Hama dan Penyakit",
+          message: "Gagal menghapus",
         });
       }
       break;

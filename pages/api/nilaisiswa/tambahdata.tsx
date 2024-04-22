@@ -16,7 +16,7 @@ export default async function handler(
     if ((userCookie && userCookie.role !== "admin") || !userCookie) {
         return {
             redirect: {
-                destination: "/dashboard",
+                destination: "/login",
                 permanent: true,
             },
         };
@@ -37,7 +37,7 @@ export default async function handler(
     }
 
     const { method } = req;
-    const { nim, fullname, username, password,nilaiipa, nilaiips}: { nim: string, fullname: string, username: string, password: string ,nilaiipa:string,nilaiips:string} = req.body;
+    const { nim, fullname, username, password,}: { nim: string, fullname: string, username: string, password: string } = req.body;
 
     switch (method) {
         case "POST":
@@ -123,7 +123,7 @@ export default async function handler(
                 if (!symptomsOnPestsAndDeseasesHasSymptoms) {
                     return res.status(404).json({
                         code: 404,
-                        message: "Gejala tidak ditemukan",
+                        message: "Ketentuan tidak ditemukan",
                     });
                 }
 
@@ -138,7 +138,7 @@ export default async function handler(
                 if (!deleteSymptom) {
                     return res.status(404).json({
                         code: 404,
-                        message: "Gejala tidak ditemukan",
+                        message: "Ketentuan tidak ditemukan",
                     });
                 }
 
@@ -148,14 +148,14 @@ export default async function handler(
 
                 res.status(200).json({
                     code: 200,
-                    message: "Berhasil menghapus Gejala",
+                    message: "Berhasil menghapus Ketentuan",
                     data: symptomsOnPestsAndDeseasesHasSymptoms,
                 });
             } catch (error) {
                 console.error(error);
                 res.status(500).json({
                     code: 500,
-                    message: "Gagal menghapus Gejala",
+                    message: "Gagal menghapus Ketentuan",
                 });
             }
             break;

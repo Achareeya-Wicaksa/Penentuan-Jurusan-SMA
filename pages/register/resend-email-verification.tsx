@@ -22,7 +22,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
     if (hasLoggedIn) {
         return {
             redirect: {
-                destination: '/dashboard',
+                destination: '/login',
                 permanent: true,
             }
         }
@@ -97,7 +97,7 @@ export default function ForgotPassword() {
                 <title>Kirim Ulang Email Verifikasi </title>
                 <meta
                     name="description"
-                    content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis."
+                    content="."
                 />
             </Head>
             <Navbar />

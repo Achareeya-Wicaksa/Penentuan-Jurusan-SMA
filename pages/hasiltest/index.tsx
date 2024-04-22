@@ -19,7 +19,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -40,12 +40,12 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
             }
         }
 
-        const symptoms = await prisma.usersDiagnoseHistory.findMany()
+        const ketentuan = await prisma.usersDiagnoseHistory.findMany()
 
         return {
             props: {
                 user: userCookie,
-                _symptoms: JSON.parse(JSON.stringify(symptoms)),
+                _symptoms: JSON.parse(JSON.stringify(ketentuan)),
             }
         }
     } catch (error) {
@@ -65,7 +65,7 @@ type AdminProps = {
 }
 
 const Admin = ({ user, _symptoms }: AdminProps) => {
-    const [symptoms, setSymptoms] = useState(() => [..._symptoms]);
+    const [ketentuan, setSymptoms] = useState(() => [..._symptoms]);
     const [selectedSymptoms, setSelectedSymptoms] = useState<any[]>([]);
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
 
@@ -88,7 +88,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
             .then((res) => res.json())
             .then((res) => {
                 setFetchIsLoading(false);
-                setSymptoms(symptoms.filter((symptom: any) => !selectedSymptoms.includes(symptom.id)));
+                setSymptoms(ketentuan.filter((symptom: any) => !selectedSymptoms.includes(symptom.id)));
                 setSelectedSymptoms([]);
             })
             .catch(() => {
@@ -114,10 +114,10 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
     }
 
     const handleToggleAll = () => {
-        if (selectedSymptoms.length === symptoms.length) {
+        if (selectedSymptoms.length === ketentuan.length) {
             setSelectedSymptoms([])
         } else {
-            setSelectedSymptoms(symptoms.map((symptom: any) => symptom.id))
+            setSelectedSymptoms(ketentuan.map((symptom: any) => symptom.id))
         }
     }
 
@@ -125,7 +125,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
         <>
             <Head>
                 <title>hasil test</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -162,7 +162,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                     <th>
                                         <label>
                                             <input type="checkbox" className="checkbox" onChange={handleToggleAll} checked={
-                                                selectedSymptoms.length === symptoms.length ? true : false
+                                                selectedSymptoms.length === ketentuan.length ? true : false
                                             } disabled={fetchIsLoading} />
                                         </label>
                                     </th>
@@ -171,12 +171,11 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                     <th>Total nilai jumlah perhitungan</th>
                                     <th>Jawaban yang dipilih</th>
                                     <th>Hasil Prediksi</th>
-                                    <th>Nilai IPS</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {symptoms.length > 0 ? symptoms.map((symptom: any, index: number) => (
+                                {ketentuan.length > 0 ? ketentuan.map((symptom: any, index: number) => (
                                     <tr key={index}>
                                         <th>
                                             <label>
@@ -192,7 +191,6 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                         <td>{symptom.finalCF}</td>
                                         <td>{symptom.userInputData}</td>
                                         <td>{symptom.pestAndDeseaseCode}</td>
-                                        <td>{symptom.nilaiips}</td>
                                         <td>
                                             <div className='flex flex-row items-center justify-start gap-2'>
                                                 <Link href={`/nilaisiswa/edit/${symptom.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>

@@ -17,7 +17,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
   if (hasLoggedIn) {
     return {
       redirect: {
-        destination: '/dashboard',
+        destination: '/login',
         permanent: true,
       }
     }
@@ -76,7 +76,7 @@ export default function Login({ AES_KEY }: LoginProps) {
           if (response.data.role === "admin") {
             router.push('/admin');
           } else {
-            router.push('/dashboard');
+            router.push('/login');
           }
         }
 
@@ -122,7 +122,7 @@ export default function Login({ AES_KEY }: LoginProps) {
     <>
       <Head>
         <title>Masuk </title>
-        <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+        <meta name="description" content="." />
       </Head>
       <Navbar />
       <main className="safe-horizontal-padding my-[16px] md:my-[48px]">

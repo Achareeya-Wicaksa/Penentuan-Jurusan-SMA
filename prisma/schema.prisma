@@ -23,35 +23,35 @@ model User {
   
 }
 
-model PestsAndDeseases {
+model Jurusan {
   code                        Int                           @id @default(autoincrement())
   name                        String                       @unique
   createdAt                   DateTime                      @default(now())
   updatedAt                   DateTime                      @updatedAt
-  symptoms                    Symptoms[]                    @relation("PestsAndDeseasesHasSymptoms")
+  ketentuan                    Ketentuan[]                    @relation("Rules")
   solution                    String                        @db.Text
   activeIngredient            String                        @db.Text
-  PestsAndDeseasesHasSymptoms PestsAndDeseasesHasSymptoms[]
+  Rules                       Rules[]
   UsersDiagnoseHistory        UsersDiagnoseHistory[]
 }
 
-model Symptoms {
+model Ketentuan {
   code                        Int                           @id @default(autoincrement())
   info                        String                        @db.VarChar(255)
   imageUrl                    String                        @db.VarChar(255)
   createdAt                   DateTime                      @default(now())
   updatedAt                   DateTime                      @updatedAt
-  pestsAndDeseases            PestsAndDeseases[]            @relation("PestsAndDeseasesHasSymptoms")
-  PestsAndDeseasesHasSymptoms PestsAndDeseasesHasSymptoms[]
+  jurusan            Jurusan[]            @relation("Rules")
+  Rules               Rules[]
 }
 
-model PestsAndDeseasesHasSymptoms {
+model Rules {
   id                 Int              @id @default(autoincrement())
   pestAndDeseaseCode Int
   symptomCode        Int
   expertCF           Float            @default(0)
-  pestsAndDeseases   PestsAndDeseases @relation(fields: [pestAndDeseaseCode], references: [code])
-  symptoms           Symptoms         @relation(fields: [symptomCode], references: [code])
+  jurusan   Jurusan @relation(fields: [pestAndDeseaseCode], references: [code])
+  ketentuan           Ketentuan         @relation(fields: [symptomCode], references: [code])
 
   @@index([symptomCode])
   @@index([pestAndDeseaseCode])
@@ -67,7 +67,7 @@ model UsersDiagnoseHistory {
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
   daftarSiswa               DaftarSiswa?            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  pestsAndDeseases   PestsAndDeseases @relation(fields: [pestAndDeseaseCode], references: [name])
+  jurusan   Jurusan @relation(fields: [pestAndDeseaseCode], references: [name])
 
   @@index([userId])
   @@index([pestAndDeseaseCode])
@@ -79,7 +79,5 @@ model DaftarSiswa {
   fullname             String                 @db.VarChar(255)
   username             String                 @unique
   password             String
-  nilaiipa             Float                  @default(0)
-  nilaiips             Float                  @default(0)
   UsersDiagnoseHistory UsersDiagnoseHistory[]
 }

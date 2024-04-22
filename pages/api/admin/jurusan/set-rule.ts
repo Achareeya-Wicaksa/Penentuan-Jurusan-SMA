@@ -16,7 +16,7 @@ export default async function handler(
   if ((userCookie && userCookie.role !== "admin") || !userCookie) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: "/login",
         permanent: true,
       },
     };
@@ -41,15 +41,15 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        const pestsAndDeseasesHasSymptoms: {
+        const rules: {
           pestAndDeseaseCode: number;
           symptomCode: number;
           expertCF: number;
         }[] = req.body.data;
 
-        pestsAndDeseasesHasSymptoms.forEach(async (item) => {
+        rules.forEach(async (item) => {
           const findPestOrDesease =
-            await prisma.pestsAndDeseasesHasSymptoms.findFirst({
+            await prisma.rules.findFirst({
               where: {
                 pestAndDeseaseCode: item.pestAndDeseaseCode,
                 AND: {
@@ -59,7 +59,7 @@ export default async function handler(
             });
 
           if (findPestOrDesease) {
-            await prisma.pestsAndDeseasesHasSymptoms.update({
+            await prisma.rules.update({
               where: {
                 id: findPestOrDesease.id,
               },
@@ -68,7 +68,7 @@ export default async function handler(
               },
             });
           } else {
-            await prisma.pestsAndDeseasesHasSymptoms.create({
+            await prisma.rules.create({
               data: {
                 pestAndDeseaseCode: item.pestAndDeseaseCode,
                 symptomCode: item.symptomCode,
@@ -78,12 +78,12 @@ export default async function handler(
           }
         });
 
-        await prisma.pestsAndDeseasesHasSymptoms.deleteMany({
+        await prisma.rules.deleteMany({
           where: {
             pestAndDeseaseCode: req.body.pestAndDeseaseCode,
             AND: {
               symptomCode: {
-                notIn: pestsAndDeseasesHasSymptoms.map((_) => _.symptomCode),
+                notIn: rules.map((_) => _.symptomCode),
               },
             },
           },

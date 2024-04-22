@@ -28,8 +28,6 @@ export default async function handler(
               fullname: item.fullname,
               username: item.username,
               password: item.password,
-              nilaiipa: item.nilaiipa,
-              nilaiips: item.nilaiips,
               },
             });
           })

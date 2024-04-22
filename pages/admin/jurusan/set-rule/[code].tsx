@@ -29,7 +29,7 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -50,26 +50,26 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
             }
         }
 
-        const pestOrDesease = await prisma.pestsAndDeseases.findUnique({
+        const pestOrDesease = await prisma.jurusan.findUnique({
             where: {
                 code: parseInt(code),
             },
             include: {
-                PestsAndDeseasesHasSymptoms: {
+                Rules: {
                     include: {
-                        symptoms: true,
+                        ketentuan: true,
                     },
                 },
             },
         })
 
-        const symptoms = await prisma.symptoms.findMany()
+        const ketentuan = await prisma.ketentuan.findMany()
 
         return {
             props: {
                 user: userCookie,
                 pestOrDesease: JSON.parse(JSON.stringify(pestOrDesease)),
-                symptoms: JSON.parse(JSON.stringify(symptoms)),
+                ketentuan: JSON.parse(JSON.stringify(ketentuan)),
             }
         }
     } catch (error) {
@@ -86,16 +86,16 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
 type AdminProps = {
     user: loggedInUserDataType;
     pestOrDesease: any;
-    symptoms: any;
+    ketentuan: any;
 }
 
-const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
+const Admin = ({ user, pestOrDesease, ketentuan }: AdminProps) => {
     const [selectedSymptomData, setSelectedSymptomData] = useState<number[]>(() => {
-        const _selectedSymptomData = pestOrDesease.PestsAndDeseasesHasSymptoms.map((v: any) => v.symptomCode)
+        const _selectedSymptomData = pestOrDesease.Rules.map((v: any) => v.symptomCode)
         return _selectedSymptomData;
     });
     const [selectedSymptomDataCF, setSelectedSymptomDataCF] = useState<number[]>(() => {
-        const _selectedSymptomDataCF = pestOrDesease.PestsAndDeseasesHasSymptoms.map((v: any) => v.expertCF)
+        const _selectedSymptomDataCF = pestOrDesease.Rules.map((v: any) => v.expertCF)
         return _selectedSymptomDataCF;
     });
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
@@ -109,7 +109,7 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
         const formData = new FormData(formRef.current);
         const data = Object.fromEntries(formData.entries());
 
-        // remap var data to contain only selected symptoms by code
+        // remap var data to contain only selected ketentuan by code
         const selectedSymptoms = selectedSymptomData.map((code) => {
             return {
                 symptomCode: code,
@@ -128,7 +128,7 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
         const fetchCreatePestOrDesease = (async (pestAndDeseaseCode: number) => {
             setFetchIsLoading(true);
 
-            return await fetch(`/api/admin/pests-deseases/set-rule`, {
+            return await fetch(`/api/admin/jurusan/set-rule`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
         toast.promise(fetchCreatePestOrDesease(pestAndDeseaseCode)
             .then((res) => res.json())
             .then((res) => {
-                router.push(`/admin/pests-deseases`);
+                router.push(`/admin/jurusan`);
             })
             .catch(() => {
                 toast.error('Sistem gagal menyimpan rule, ada kesalahan pada sistem', {
@@ -172,18 +172,18 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
     }
 
     const handleToggleAll = () => {
-        if (selectedSymptomData.length === symptoms.length) {
+        if (selectedSymptomData.length === ketentuan.length) {
             setSelectedSymptomData([])
         } else {
-            setSelectedSymptomData(symptoms.map((symptom: any) => symptom.code))
+            setSelectedSymptomData(ketentuan.map((symptom: any) => symptom.code))
         }
     }
 
     return (
         <>
             <Head>
-                <title>Pengaturan Rule untuk [HP{pestOrDesease.code}]: {pestOrDesease.name} - SIPBUK Admin</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <title>Pengaturan Rule untuk [{pestOrDesease.code}]: {pestOrDesease.name} - Admin</title>
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -196,21 +196,21 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/admin/pests-deseases">
+                            <Link href="/admin/jurusan">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                 Data penjurusan
                             </Link>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                            Pengaturan Rule untuk [HP{pestOrDesease.code}]: {pestOrDesease.name}
+                            Pengaturan Rule untuk [{pestOrDesease.code}]: {pestOrDesease.name}
                         </li>
                     </ul>
                 </div>
                 <form onSubmit={onSubmitHandler} ref={formRef}>
                     <div className="flex items-center justify-between">
                         <h4 className="mb-2 text-xl font-bold">
-                            Pengaturan Rule untuk [HP{pestOrDesease.code}]: {pestOrDesease.name}
+                            Pengaturan Rule untuk [{pestOrDesease.code}]: {pestOrDesease.name}
                         </h4>
                         <button className={`btn btn-primary ${fetchIsLoading ? 'loading' : ''}`} type='submit' disabled={fetchIsLoading}>Simpan Rule</button>
                     </div>
@@ -218,7 +218,7 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
                         <div className="mb-4 mockup-code">
                             <pre data-prefix=">">
                                 <code>Aturan gejala dipilih: </code>
-                                <code>G{JSON.stringify(selectedSymptomData)}</code>
+                                <code>{JSON.stringify(selectedSymptomData)}</code>
                             </pre>
                         </div>
                         <div className="w-full overflow-x-auto">
@@ -228,25 +228,25 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
                                         <th>
                                             <label>
                                                 <input type="checkbox" className="checkbox" onChange={handleToggleAll} checked={
-                                                    selectedSymptomData.length === symptoms.length
+                                                    selectedSymptomData.length === ketentuan.length
                                                 } />
                                             </label>
                                         </th>
-                                        <th>Kode Gejala</th>
+                                        <th>Kode Ketentuan</th>
                                         <th>Gambar</th>
-                                        <th>Info Gejala</th>
+                                        <th>Info Ketentuan</th>
                                         <th>CF Pakar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {symptoms.map((symptom: any, index: number) => (
+                                    {ketentuan.map((symptom: any, index: number) => (
                                         <tr key={index}>
                                             <th>
                                                 <label>
                                                     <input type="checkbox" className="checkbox" value={symptom.code} onChange={() => handleSelectOneSymptom(symptom.code)} checked={selectedSymptomData.find((v) => v === symptom.code) ? true : false} />
                                                 </label>
                                             </th>
-                                            <td>{`G${symptom.code}`}</td>
+                                            <td>{`${symptom.code}`}</td>
                                             <td>
                                                 {/* The button to open modal */}
                                                 <label htmlFor={`modal-${symptom.code}`} className='w-[110px] h-[100px]'>
@@ -257,7 +257,7 @@ const Admin = ({ user, pestOrDesease, symptoms }: AdminProps) => {
                                                 <input type="checkbox" id={`modal-${symptom.code}`} className="modal-toggle" />
                                                 <label htmlFor={`modal-${symptom.code}`} className="cursor-pointer modal">
                                                     <label className="relative modal-box" htmlFor="">
-                                                        <h3 className="text-lg font-bold">Gambar Gejala (G{symptom.code})</h3>
+                                                        <h3 className="text-lg font-bold">Gambar Ketentuan ({symptom.code})</h3>
                                                         <Image className='bg-cover rounded-md' src={symptom.imageUrl} alt='' width={800} height={500} loader={({ src }) => src} />
                                                     </label>
                                                 </label>

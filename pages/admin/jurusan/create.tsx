@@ -1,4 +1,4 @@
-import { loggedInUserDataType } from '@/types';
+import { getServerSidePropsType, loggedInUserDataType } from '@/types';
 import { deleteCookie, getCookie, hasCookie } from 'cookies-next';
 import Head from "next/head";
 import Navbar from '@/components/Navbar';
@@ -6,10 +6,9 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/prisma';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import prisma from '@/prisma';
 
 const ReactQuill = dynamic(() => import('react-quill'), {
     loading: () => (
@@ -20,15 +19,7 @@ const ReactQuill = dynamic(() => import('react-quill'), {
     ), ssr: false
 })
 
-type getServerSidePropsType = {
-    params: {
-        code: string;
-    };
-    req: NextApiRequest;
-    res: NextApiResponse;
-}
-
-export async function getServerSideProps({ params: { code }, req, res }: getServerSidePropsType) {
+export async function getServerSideProps({ req, res }: getServerSidePropsType) {
     const isCookieExist = hasCookie("user", { req, res });
 
     try {
@@ -38,7 +29,7 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -59,16 +50,9 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
             }
         }
 
-        const pestOrDesease = await prisma.pestsAndDeseases.findUnique({
-            where: {
-                code: parseInt(code),
-            },
-        })
-
         return {
             props: {
                 user: userCookie,
-                pestOrDesease: JSON.parse(JSON.stringify(pestOrDesease)),
             }
         }
     } catch (error) {
@@ -84,63 +68,52 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
 
 type AdminCreateProps = {
     user: loggedInUserDataType;
-    pestOrDesease: {
-        code: number;
-        name: string;
-        solution: string;
-        activeIngredient: string;
-        createdAt: Date;
-        updatedAt: Date;
-    };
 }
 
-const AdminEditPestOrDesease = ({ user, pestOrDesease }: AdminCreateProps) => {
-    const [solution, setSolution] = useState<string>(pestOrDesease.solution);
-    const [activeIngredient, setActiveIngredient] = useState<string>(pestOrDesease.activeIngredient);
+const AdminCreatePestOrDesease = ({ user }: AdminCreateProps) => {
+    const [solution, setSolution] = useState<string>("");
+    const [activeIngredient, setActiveIngredient] = useState<string>("");
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
-    const onSubmitHandler = async (e: any, pestOrDeseaseCode: number) => {
+    const onSubmitHandler = async (e: any) => {
         e.preventDefault();
 
         // @ts-ignore
         const formData = new FormData(formRef.current);
         const data = Object.fromEntries(formData.entries());
 
-        const fetchCreatePestOrDesease = (async (pestOrDeseaseCode: number) => {
+        const fetchCreatePestOrDesease = (async () => {
             setFetchIsLoading(true);
 
-            return await fetch(`/api/admin/pests-deseases`, {
-                method: 'PUT',
+            return await fetch('/api/admin/jurusan', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    pestOrDeseaseCode,
-                    data: {
-                        name: data.name,
-                        solution,
-                        activeIngredient,
-                    }
+                    name: data.name,
+                    solution,
+                    activeIngredient,
                 }),
             })
         })
 
-        toast.promise(fetchCreatePestOrDesease(pestOrDeseaseCode)
+        toast.promise(fetchCreatePestOrDesease()
             .then((res) => res.json())
             .then((res) => {
-                router.push(`/admin/pests-deseases`);
+                router.push(`/admin/jurusan/set-rule/${res.data.code}`);
             })
             .catch(() => {
-                toast.error('Sistem gagal menyimpan pembaruan data, ada kesalahan pada sistem', {
+                toast.error('Sistem gagal menyimpan data, ada kesalahan pada sistem', {
                     duration: 5000,
                 });
                 setFetchIsLoading(false);
             }), {
-            loading: 'Sistem sedang menyimpan pembaruan data...',
-            success: 'Sistem berhasil menyimpan pembaruan data',
-            error: 'Sistem gagal menyimpan pembaruan data',
+            loading: 'Sistem sedang menyimpan data...',
+            success: 'Sistem berhasil menyimpan data',
+            error: 'Sistem gagal menyimpan data',
         }, {
             duration: 5000,
         });
@@ -149,8 +122,8 @@ const AdminEditPestOrDesease = ({ user, pestOrDesease }: AdminCreateProps) => {
     return (
         <>
             <Head>
-                <title>Ubah Data untuk [HP{pestOrDesease.code}]: {pestOrDesease.name} - SIPBUK Admin</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <title>Tambah Data penjurusan</title>
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -163,43 +136,38 @@ const AdminEditPestOrDesease = ({ user, pestOrDesease }: AdminCreateProps) => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/admin/pests-deseases">
+                            <Link href="/admin/jurusan">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                                Data penjurusan
+                                Data jurusan
                             </Link>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Ubah Data untuk [HP{pestOrDesease.code}]: {pestOrDesease.name}
+                            Tambah penjurusan
                         </li>
                     </ul>
                 </div>
                 <h4 className="mt-1 mb-2 text-xl font-bold">
-                    Ubah Data untuk [HP{pestOrDesease.code}]: {pestOrDesease.name}
+                    Tambah penjurusan
                 </h4>
                 <div className="mt-2">
-                    <form onSubmit={(e: any) => onSubmitHandler(e, pestOrDesease.code)} ref={formRef}>
+                    <form onSubmit={onSubmitHandler} ref={formRef}>
                         <div className="form-control">
                             <label className="label" htmlFor='name'>
                                 <span className="label-text">Nama jurusan</span>
                             </label>
                             <label className="input-group">
-                                <input type="text" name="name" placeholder="Nama ... atau Hama ..." className="w-full input input-bordered" id='name' required disabled={fetchIsLoading} defaultValue={pestOrDesease.name} />
+                                <input type="text" name="name" placeholder="Nama" className="w-full input input-bordered" id='name' required disabled={fetchIsLoading} />
                             </label>
                         </div>
                         <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Solusi</span>
+                            <label className="label" htmlFor="solution">
+                                <span className="label-text">Info</span>
                             </label>
                             <ReactQuill theme="snow" value={solution} onChange={setSolution} />
                         </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Bahan Aktif</span>
-                            </label>
-                            <ReactQuill theme="snow" value={activeIngredient} onChange={setActiveIngredient} />
-                        </div>
-                        <button type="submit" className={`mt-4 btn btn-primary ${fetchIsLoading ? 'loading' : ''}`} disabled={fetchIsLoading}>Simpan Perubahan</button>
+
+                        <button type="submit" className={`mt-4 btn btn-primary ${fetchIsLoading ? 'loading' : ''}`} disabled={fetchIsLoading}>Simpan</button>
                     </form>
                 </div>
             </main>
@@ -207,4 +175,4 @@ const AdminEditPestOrDesease = ({ user, pestOrDesease }: AdminCreateProps) => {
     )
 }
 
-export default AdminEditPestOrDesease;
+export default AdminCreatePestOrDesease;

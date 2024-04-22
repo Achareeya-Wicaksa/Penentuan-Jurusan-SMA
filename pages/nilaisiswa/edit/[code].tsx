@@ -28,7 +28,7 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -76,8 +76,6 @@ type AdminCreateProps = {
         nim: string;
         fullname: string;
         username: string;
-        nilaiipa: number;
-        nilaiips: number;
     };
 }
 
@@ -133,8 +131,8 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
     return (
         <>
             <Head>
-                <title>Ubah Data pertanyaan [G{symptom.nim}]: {symptom.fullname} Admin</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <title>Ubah Data pertanyaan [{symptom.nim}]: {symptom.fullname} Admin</title>
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -147,14 +145,14 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/admin/symptoms">
+                            <Link href="/admin/ketentuan">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                 Data pertanyaan
                             </Link>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Ubah Data pertanyaan [G{symptom.nim}]: {symptom.fullname}
+                            Ubah Data pertanyaan [{symptom.nim}]: {symptom.fullname}
                         </li>
                     </ul>
                 </div>
@@ -173,7 +171,7 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
                                         <span className="label-text">Nim</span>
                                     </label>
                                     <label className="rounded-md input-group">
-                                        <input type="text" name="nim" placeholder="Ciri-Ciri Gejala" className="w-full input input-bordered" id='nim' required disabled={fetchIsLoading} defaultValue={symptom.nim} />
+                                        <input type="text" name="nim" placeholder="Ciri-Ciri Ketentuan" className="w-full input input-bordered" id='nim' required disabled={fetchIsLoading} defaultValue={symptom.nim} />
                                     </label>
                                 </div>
                                 <div className="form-control">
@@ -181,26 +179,9 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
                                         <span className="label-text">Nama Lengkap</span>
                                     </label>
                                     <label className="rounded-md input-group">
-                                        <input type="text" name="fullname" placeholder="Ciri-Ciri Gejala" className="w-full input input-bordered" id='fullname' required disabled={fetchIsLoading} defaultValue={symptom.fullname} />
+                                        <input type="text" name="fullname" placeholder="Ciri-Ciri Ketentuan" className="w-full input input-bordered" id='fullname' required disabled={fetchIsLoading} defaultValue={symptom.fullname} />
                                     </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label" htmlFor='info'>
-                                        <span className="label-text">Nilai IPA</span>
-                                    </label>
-                                    <label className="rounded-md input-group">
-                                        <input type="text" name="nilaiipa" placeholder="Ciri-Ciri Gejala" className="w-full input input-bordered" id='nilaiipa' required disabled={fetchIsLoading} defaultValue={symptom.nilaiipa} />
-                                    </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label" htmlFor='info'>
-                                        <span className="label-text">Nilai IPS</span>
-                                    </label>
-                                    <label className="rounded-md input-group">
-                                        <input type="text" name="nilaiips" placeholder="Ciri-Ciri Gejala" className="w-full input input-bordered" id='nilaiips' required disabled={fetchIsLoading} defaultValue={symptom.nilaiips} />
-                                    </label>
-                                </div>
-                                
+                                </div>                               
                                 <button type="submit" className={`mt-4 btn btn-primary ${fetchIsLoading ? 'loading' : ''}`} disabled={fetchIsLoading}>Simpan</button>
                             </div>
                         </div>

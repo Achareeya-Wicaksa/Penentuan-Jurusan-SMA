@@ -18,7 +18,7 @@ export function getServerSideProps({ query, req, res }: getServerSidePropsType) 
     if (hasLoggedIn) {
         return {
             redirect: {
-                destination: '/dashboard',
+                destination: '/login',
                 permanent: true,
             }
         }

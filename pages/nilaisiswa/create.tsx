@@ -19,7 +19,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -113,7 +113,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
         <>
             <Head>
                 <title>Tambah Data Siswa</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -126,7 +126,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/admin/symptoms">
+                            <Link href="/admin/ketentuan">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                 Data Siswa
                             </Link>
@@ -160,25 +160,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                                     <label className="rounded-md input-group">
                                         <input type="text" name="fullname" placeholder="Nama Lengkap Siswa" className="w-full input input-bordered" id='fullname' required disabled={fetchIsLoading} />
                                     </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label" htmlFor='nilaiipa'>
-                                        <span className="label-text">Nilai IPA </span>
-                                    </label>
-                                    <label className="rounded-md input-group">
-                                        <input type="text" name="nilaiipa" placeholder="Nilai IPA" className="w-full input input-bordered" id='nilaiipa' required disabled={fetchIsLoading} />
-                                    </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label" htmlFor='nilaiips'>
-                                        <span className="label-text">Nilai IPS </span>
-                                    </label>
-                                    <label className="rounded-md input-group">
-                                        <input type="text" name="nilaiips" placeholder="Nilai IPS" className="w-full input input-bordered" id='nilaiips' required disabled={fetchIsLoading} />
-                                    </label>
-                                </div>
-                                
-                                
+                                </div>                           
                                 <button type="submit" className={`mt-4 btn btn-primary ${fetchIsLoading ? 'loading' : ''}`} disabled={fetchIsLoading}>Simpan</button>
                             </div>
                         </div>

@@ -9,7 +9,7 @@ import {
 import prisma from ".";
 
 const createManyPestsAndDeseases = async () => {
-  await prisma.pestsAndDeseases.createMany({
+  await prisma.jurusan.createMany({
     data: pestsAndDeseasesRawData,
   });
 
@@ -17,7 +17,7 @@ const createManyPestsAndDeseases = async () => {
 };
 
 const createManySymptoms = async () => {
-  await prisma.symptoms.createMany({
+  await prisma.ketentuan.createMany({
     data: symptomsRawData,
   });
 
@@ -25,7 +25,7 @@ const createManySymptoms = async () => {
 };
 
 const createManyPestsAndDeseasesHasSymptoms = async () => {
-  await prisma.pestsAndDeseasesHasSymptoms.createMany({
+  await prisma.rules.createMany({
     data: pestsAndDeseasesHasSymptomsRawData,
   });
 
@@ -73,7 +73,7 @@ const initialSeeds = async () => {
 
 const updatePestOrDesease = async () => {
   const code = Number(process.argv[3]);
-  await prisma.pestsAndDeseases.update({
+  await prisma.jurusan.update({
     where: {
       code,
     },
@@ -88,7 +88,7 @@ const updateSymtomps = async () => {
 
   if (!code) {
     symptomsRawData.forEach(async (_) => {
-      await prisma.symptoms.update({
+      await prisma.ketentuan.update({
         where: {
           code: _.code,
         },
@@ -100,7 +100,7 @@ const updateSymtomps = async () => {
     return;
   }
 
-  await prisma.symptoms.update({
+  await prisma.ketentuan.update({
     where: {
       code,
     },

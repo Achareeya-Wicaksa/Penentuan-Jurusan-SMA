@@ -30,7 +30,7 @@ export default async function handler(
             },
           },
           include: {
-            pestsAndDeseases: true,
+            jurusan: true,
           },
         });
 

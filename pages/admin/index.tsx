@@ -32,7 +32,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -53,8 +53,8 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
             }
         }
 
-        const pestsAndDeseasesCount = await prisma.pestsAndDeseases.count()
-        const symptomsCount = await prisma.symptoms.count()
+        const pestsAndDeseasesCount = await prisma.jurusan.count()
+        const symptomsCount = await prisma.ketentuan.count()
         const usersCount = await prisma.user.count()
         const siswaCount = await prisma.daftarSiswa.count()
         const usersDiagnosesHistoryCount = await prisma.usersDiagnoseHistory.count()
@@ -92,8 +92,8 @@ type AdminProps = {
 const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDiagnosesHistoryCount, siswaCount }: AdminProps) => (
     <>
         <Head>
-            <title>Dashboard - SIPBUK Admin</title>
-            <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+            <title>Dashboard </title>
+            <meta name="description" content="." />
         </Head>
         <Navbar userFullname={user.fullname} role={user.role} />
         <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -119,7 +119,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                         </h2>
                         <p className='font-bold'>Manajemen Jurusan</p>
                         <div className="justify-end card-actions">
-                            <Link href="/admin/pests-deseases" className="btn btn-primary">Lihat</Link>
+                            <Link href="/admin/jurusan" className="btn btn-primary">Lihat</Link>
                         </div>
                     </div>
                 </div>
@@ -131,9 +131,9 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                                 <span style={{ "--value": symptomsCount }}></span>
                             </span>
                         </h2>
-                        <p className='font-bold'>Manajemen Pertanyaan dan perpoinan Test Minat & Bakat</p>
+                        <p className='font-bold'>Manajemen Pertanyaan dan perpoinan Test Minat</p>
                         <div className="justify-end card-actions">
-                            <Link href="/admin/symptoms" className="btn btn-primary">Lihat</Link>
+                            <Link href="/admin/ketentuan" className="btn btn-primary">Lihat</Link>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                                 <span style={{ "--value": siswaCount }}></span>
                             </span>
                         </h2>
-                        <p className='font-bold'>Manajemen akun dan nilai Siswa</p>
+                        <p className='font-bold'>Manajemen akun Siswa</p>
                         <div className="justify-end card-actions">
                             <Link href="/nilaisiswa" className="btn btn-primary">Lihat</Link>
                         </div>

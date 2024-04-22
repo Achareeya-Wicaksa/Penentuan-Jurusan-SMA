@@ -18,7 +18,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -39,11 +39,11 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
             }
         }
 
-        const pestsDeseases = await prisma.pestsAndDeseases.findMany({
+        const pestsDeseases = await prisma.jurusan.findMany({
             include: {
-                PestsAndDeseasesHasSymptoms: {
+                Rules: {
                     include: {
-                        symptoms: true,
+                        ketentuan: true,
                     },
                 },
             },
@@ -80,7 +80,7 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
         const fetchDeletePestAndDesease = (async () => {
             setFetchIsLoading(true);
 
-            return await fetch('/api/admin/pests-deseases', {
+            return await fetch('/api/admin/jurusan', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
         <>
             <Head>
                 <title>Dashboard Admin</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -158,7 +158,7 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
                         {selectedPestsDeseases.length > 0 && (
                             <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedPestsAndDeseases} disabled={fetchIsLoading}>Hapus {selectedPestsDeseases.length} Data</button>
                         )}
-                        <Link className="btn btn-primary" href="/admin/pests-deseases/create"><BsPlus size={24} />Tambah Data</Link>
+                        <Link className="btn btn-primary" href="/admin/jurusan/create"><BsPlus size={24} />Tambah Data</Link>
                     </div>
                 </div>
                 <div className="mt-4">
@@ -173,7 +173,7 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
                                     </th>
                                     <th>Kode</th>
                                     <th>Nama jurusan</th>
-                                    <th>Gejala Terkait</th>
+                                    <th>Ketentuan Terkait</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -187,15 +187,15 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
                                                 } disabled={fetchIsLoading} />
                                             </label>
                                         </th>
-                                        <td>{`HP${pd.code}`}</td>
+                                        <td>{`${pd.code}`}</td>
                                         <td>{pd.name}</td>
                                         <td>
                                             <span className='max-w-[100px] lg:max-w-[200px] overflow-x-auto flex flex-wrap'>
-                                                {pd.PestsAndDeseasesHasSymptoms.length > 0 ?
-                                                    pd.PestsAndDeseasesHasSymptoms.map((item: any, index: number) => (
+                                                {pd.Rules.length > 0 ?
+                                                    pd.Rules.map((item: any, index: number) => (
                                                         <span key={index}>
-                                                            G{item.symptoms.code}
-                                                            {index === pd.PestsAndDeseasesHasSymptoms.length - 1 ? "" : <span>,&nbsp;</span>}
+                                                            {item.ketentuan.code}
+                                                            {index === pd.Rules.length - 1 ? "" : <span>,&nbsp;</span>}
                                                         </span>
                                                     )) : (
                                                         <span className='text-xs font-bold text-red-500'>*Rule Belum Diatur</span>
@@ -204,8 +204,8 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
                                         </td>
                                         <td>
                                             <span className='flex flex-row items-center justify-start gap-2'>
-                                                <Link href={`/admin/pests-deseases/edit/${pd.code}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
-                                                <Link href={`/admin/pests-deseases/set-rule/${pd.code}`} className="btn btn-outline btn-accent btn-xs">Atur Rule</Link>
+                                                <Link href={`/admin/jurusan/edit/${pd.code}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
+                                                <Link href={`/admin/jurusan/set-rule/${pd.code}`} className="btn btn-outline btn-accent btn-xs">Atur Rule</Link>
                                             </span>
                                         </td>
                                     </tr>

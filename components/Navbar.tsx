@@ -90,7 +90,7 @@ export default function Navbar({ isSticky = true, userFullname = null, role = nu
                       </li>
                     )}
                     <li>
-                      <Link href="/dashboard">{role === "admin" && "User "}Dashboard</Link>
+                      <Link href="/login">{role === "admin" && "User "}Dashboard</Link>
                     </li>
                     <li>
                       <button onClick={handleClickLogout}>Keluar</button>
@@ -128,7 +128,7 @@ export default function Navbar({ isSticky = true, userFullname = null, role = nu
                   )}
                   {userFullname && (
                     <li>
-                      <Link href="/dashboard">{role === "admin" && "User "}Dashboard</Link>
+                      <Link href="/login">{role === "admin" && "User "}Dashboard</Link>
                     </li>
                   )}
                   {navLinks.map((nl, index) => (

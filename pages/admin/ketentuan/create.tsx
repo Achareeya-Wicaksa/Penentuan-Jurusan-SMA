@@ -19,7 +19,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         if (userCookie && userCookie.role !== 'admin' || !userCookie) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/login',
                     permanent: true,
                 }
             }
@@ -62,7 +62,7 @@ type AdminCreateProps = {
 
 const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
-    const [selectedImageUrl, setSelectedImageUrl] = useState<any>("https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp");
+    const [selectedImageUrl, setSelectedImageUrl] = useState<any>(" https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp");
     const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
@@ -91,7 +91,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
         toast.promise(fetchCreatePestOrDesease()
             .then((res) => res.json())
             .then((res) => {
-                router.push(`/admin/symptoms`);
+                router.push(`/admin/ketentuan`);
             })
             .catch(() => {
                 toast.error('Sistem gagal menyimpan data, ada kesalahan pada sistem', {
@@ -110,7 +110,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
         <>
             <Head>
                 <title>Tambah Data pertanyaan </title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -123,7 +123,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/admin/symptoms">
+                            <Link href="/admin/ketentuan">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                 Data pertanyaan
                             </Link>
@@ -142,16 +142,16 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
                         <div className='flex flex-col gap-4 lg:flex-row lg:gap-8 lg:justify-center lg:items-center'>
                             <div className='flex justify-center w-full lg:justify-start'>
                                 <div className='rounded-md bg-primary'>
-                                    <Image className='object-cover w-[480px] h-[432px] rounded-md' src={!selectedImageUrl ? "https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp" : selectedImageUrl} alt="Preview Gambar" loader={({ src }) => src} width={480} height={432} />
+                                    <Image className='object-cover w-[480px] h-[432px] rounded-md' src={!selectedImageUrl ? " https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp" : selectedImageUrl} alt="Preview Gambar" loader={({ src }) => src} width={480} height={432} />
                                 </div>
                             </div>
                             <div className='w-full'>
                                 <div className="form-control">
                                     <label className="label" htmlFor='info'>
-                                        <span className="label-text">Keterangan Gejala</span>
+                                        <span className="label-text">Keterangan Ketentuan</span>
                                     </label>
                                     <label className="rounded-md input-group">
-                                        <input type="text" name="info" placeholder="Ciri-Ciri Gejala" className="w-full input input-bordered" id='info' required disabled={fetchIsLoading} />
+                                        <input type="text" name="info" placeholder="Ciri-Ciri Ketentuan" className="w-full input input-bordered" id='info' required disabled={fetchIsLoading} />
                                     </label>
                                 </div>
                                 <div className="form-control">

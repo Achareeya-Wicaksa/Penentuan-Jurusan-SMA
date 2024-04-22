@@ -25,7 +25,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
     }
 }
 
-  const fetchSymptoms = await prisma.symptoms.findMany({
+  const fetchSymptoms = await prisma.ketentuan.findMany({
     orderBy: {
       code: "asc",
     },
@@ -106,10 +106,6 @@ export default function Consult({ user, questionList }: ConsultProps) {
       return;
     }
 
-    // manipulate data for test purpose (development only)
-    // remapDataToObject["1"] = 0.8; // yakin
-    // remapDataToObject["2"] = 0.8; // yakin
-    // remapDataToObject["4"] = 0.6; // cukup yakin
 
     const fetchCertaintyFactorInferenceEngine = (async () => {
       setFetchIsLoading(true);
@@ -317,7 +313,7 @@ export default function Consult({ user, questionList }: ConsultProps) {
     <>
       <Head>
         <title></title>
-        <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+        <meta name="description" content="." />
       </Head>
       <Navbar isSticky={false} userFullname={user?.fullname} role={user?.role} />
       <main className="safe-horizontal-padding mt-[16px] md:mt-[48px]">

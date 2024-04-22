@@ -3,12 +3,12 @@ import prisma from "@/prisma";
 type TUserInputData = {
   [key: string]: number;
 };
-type TPestsAndDeseasesHasSymptoms<T = {}> = {
+type TRules<T = {}> = {
   id: number;
   pestAndDeseaseCode: number;
   symptomCode: number;
   expertCF: number;
-  symptoms: {
+  ketentuan: {
     code: number;
     info: string;
     imageUrl: string;
@@ -18,7 +18,7 @@ type TPestsAndDeseasesHasSymptoms<T = {}> = {
   createdAt: Date;
   updatedAt: Date;
 } & T;
-type TData<T = {}, PestsAndDeseasesHasSymptoms = {}> = {
+type TData<T = {}, Rules = {}> = {
   code: number;
   name: string;
   imageUrl: string;
@@ -26,7 +26,7 @@ type TData<T = {}, PestsAndDeseasesHasSymptoms = {}> = {
   updatedAt: Date;
   solution: string;
   activeIngredients: string;
-  PestsAndDeseasesHasSymptoms: TPestsAndDeseasesHasSymptoms<PestsAndDeseasesHasSymptoms>[];
+  Rules: TRules<Rules>[];
 } & T;
 
 export type TKnowledgeBase = TData;
@@ -92,11 +92,11 @@ export default class CertaintyFactor implements ICertaintyFactor {
   }
 
   async generateKnowledgeBase() {
-    const data = await prisma.pestsAndDeseases.findMany({
+    const data = await prisma.jurusan.findMany({
       include: {
-        PestsAndDeseasesHasSymptoms: {
+        Rules: {
           include: {
-            symptoms: true,
+            ketentuan: true,
           },
         },
       },
@@ -113,12 +113,12 @@ export default class CertaintyFactor implements ICertaintyFactor {
       .knowledgeBase;
 
     const knowledgeBaseRuleWithUserInputData = knowledgeBase.map((rule) => {
-      const { PestsAndDeseasesHasSymptoms } = rule;
+      const { Rules } = rule;
 
-      const PestsAndDeseasesHasSymptomsWithInjectedUserCF =
-        PestsAndDeseasesHasSymptoms.map((item) => {
+      const RulesWithInjectedUserCF =
+      Rules.map((item) => {
           const {
-            symptoms: { code },
+            ketentuan: { code },
           } = item;
           const userCF = this._userInputData[code];
 
@@ -130,8 +130,8 @@ export default class CertaintyFactor implements ICertaintyFactor {
 
       return {
         ...rule,
-        PestsAndDeseasesHasSymptoms:
-          PestsAndDeseasesHasSymptomsWithInjectedUserCF,
+        Rules:
+          RulesWithInjectedUserCF,
       };
     });
 
@@ -145,10 +145,10 @@ export default class CertaintyFactor implements ICertaintyFactor {
     ).knowledgeBase;
 
     const calculatedSingleRule = knowledgeBase.map((rule) => {
-      const { PestsAndDeseasesHasSymptoms } = rule;
+      const { Rules } = rule;
 
-      if (PestsAndDeseasesHasSymptoms.length === 1) {
-        const { userCF, expertCF } = PestsAndDeseasesHasSymptoms[0];
+      if (Rules.length === 1) {
+        const { userCF, expertCF } = Rules[0];
         const CF = userCF * expertCF;
 
         return {
@@ -157,7 +157,7 @@ export default class CertaintyFactor implements ICertaintyFactor {
         };
       }
 
-      const calculatedSingleRuleCF = PestsAndDeseasesHasSymptoms.map(
+      const calculatedSingleRuleCF = Rules.map(
         ({ userCF, expertCF }) => {
           const CF = userCF * expertCF;
           return CF;

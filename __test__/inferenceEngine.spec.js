@@ -1,6 +1,6 @@
 import CertaintyFactor from "../utils/certaintyFactor";
 
-test("knowledge base harus memiliki 8 hama dan penyakit serta keterikatan terhadap gejalanya", async () => {
+test("knowledge base ", async () => {
   const expectedPestDeseaseDataLength = 8;
   const expectedPestsDeseaseRelationRuleLength = {
     HP1: 5,
@@ -28,9 +28,9 @@ test("knowledge base harus memiliki 8 hama dan penyakit serta keterikatan terhad
   });
 });
 
-test("hasil diagnosis harus mengindikasikan Penyakit Busuk Akar dengan nilai 0.9760", async () => {
+test("", async () => {
   const expectation = {
-    name: "Penyakit Busuk Akar",
+    name: "",
     finalCF: 0.976,
   };
   const userInput = {

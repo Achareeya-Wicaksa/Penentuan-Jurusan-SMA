@@ -25,7 +25,7 @@ export async function getServerSideProps({ params: { diagnoseId }, req, res }: g
             id: diagnoseId
         },
         include: {
-            pestsAndDeseases: true,
+            jurusan: true,
         }
     });
 
@@ -73,7 +73,7 @@ interface DiagnoseResultProps {
         userInputData: string; //json
         createdAt: string;
         updatedAt: string;
-        pestsAndDeseases: {
+        jurusan: {
             code: number;
             name: string;
             imageUrl: string;
@@ -116,7 +116,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
         <>
             <Head>
                 <title>Hasil test</title>
-                <meta name="description" content="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis." />
+                <meta name="description" content="." />
             </Head>
             <Navbar isSticky={true} userFullname={user?.fullname} role={user?.role} />
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
@@ -125,7 +125,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                         Hasil Diagnosis
                     </h2>
                     <p className="text-center text-base leading-[24px] max-w-[660px]">
-                        Hasil Diagnosis menunjukan bahwa anda cocok pada <b className='capitalize'>{diagnoseHistory.pestsAndDeseases.name}</b> dengan tingkat <b>Akurasi {getAccurationLevel(diagnoseHistory.finalCF)}</b> sebesar <b>{getPercentageAccuration(diagnoseHistory.finalCF)}</b>
+                        Hasil Diagnosis menunjukan bahwa anda cocok pada <b className='capitalize'>{diagnoseHistory.jurusan.name}</b> dengan tingkat <b>Akurasi {getAccurationLevel(diagnoseHistory.finalCF)}</b> sebesar <b>{getPercentageAccuration(diagnoseHistory.finalCF)}</b>
                     </p>
                     <a href="#solusi" className="mt-5 btn btn-active btn-ghost">Lihat Solusi</a>
                 </div>
@@ -137,7 +137,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                     <p className="text-center text-base leading-[24px] max-w-[660px] m-auto mb-2">
                         Berikut hasil
                     </p>
-                    <p className='text-center text-base leading-[24px] max-w-[660px] m-auto mb-10 text-gray-500'>Terakhir diperbarui pada {new Date(diagnoseHistory.pestsAndDeseases.updatedAt).toLocaleDateString("id-ID", {
+                    <p className='text-center text-base leading-[24px] max-w-[660px] m-auto mb-10 text-gray-500'>Terakhir diperbarui pada {new Date(diagnoseHistory.jurusan.updatedAt).toLocaleDateString("id-ID", {
                         weekday: "long",
                         year: "numeric",
                         month: "long",
@@ -151,7 +151,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                             <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
                                 diisi admin
                             </p>
-                            <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.pestsAndDeseases.solution }}></div>
+                            <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.jurusan.solution }}></div>
                         </div>
                         <div className="hidden divider lg:flex lg:divider-horizontal">
                             disi admin
@@ -165,7 +165,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                             <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
                                 test
                             </p>
-                            <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.pestsAndDeseases.activeIngredient }}></div>
+                            <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.jurusan.activeIngredient }}></div>
                         </div>
                     </div>
                 </section>
@@ -190,7 +190,7 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                                 <tbody>
                                     {diagnoseHistoryStep.sort((a, b) => b.finalCF - a.finalCF).map((step, i) => (
                                         <tr key={i} className={i == 0 ? 'text-green-500' : ''}>
-                                            <td>HP{step.code}</td>
+                                            <td>{step.code}</td>
                                             <td>{step.name}</td>
                                             <td>{toFixedEmitter(step.finalCF * 100)}%</td>
                                             <td>{getAccurationLevel(step.finalCF)}</td>

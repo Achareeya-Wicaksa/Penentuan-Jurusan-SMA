@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Analytics />
       <DefaultSeo
-        description="Sistem Pakar berbasis web ini dapat membantu anda dalam mendiagnosis hama dan penyakit pada tanaman jambu kristal anda, serta dapat memberikan solusi atas masalah yang dialami oleh tanaman jambu kristal anda secara gratis."
+        description="."
         openGraph={{
           type: 'website',
           locale: 'id_ID',

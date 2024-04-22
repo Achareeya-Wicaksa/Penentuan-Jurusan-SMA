@@ -16,7 +16,7 @@ export default async function handler(
     if ((userCookie && userCookie.role !== "admin") || !userCookie) {
         return {
             redirect: {
-                destination: "/dashboard",
+                destination: "/login",
                 permanent: true,
             },
         };
@@ -42,11 +42,11 @@ export default async function handler(
     switch (method) {
         case "POST":
             try {
-                const createSymptom = await prisma.symptoms.create({
+                const createSymptom = await prisma.ketentuan.create({
                     // @ts-ignore
                     data: {
                         info,
-                        imageUrl: imageUrl ? imageUrl : "https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp",
+                        imageUrl: imageUrl ? imageUrl : " https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp",
                     },
                 });
 
@@ -73,13 +73,13 @@ export default async function handler(
             break;
         case "PUT":
             try {
-                const updateSymptom = await prisma.symptoms.update({
+                const updateSymptom = await prisma.ketentuan.update({
                     where: {
                         code: parseInt(req.body.symptomCode),
                     },
                     data: {
                         info,
-                        imageUrl: imageUrl ? imageUrl : "https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp",
+                        imageUrl: imageUrl ? imageUrl : " https://res.cloudinary.com/sipbuk/image/upload/v1689001147/symptoms/default.webp",
                     },
                 });
 
@@ -106,7 +106,7 @@ export default async function handler(
             break;
         case "DELETE":
             try {
-                const symptomsOnPestsAndDeseasesHasSymptoms = await prisma.pestsAndDeseasesHasSymptoms.deleteMany({
+                const symptomsOnPestsAndDeseasesHasSymptoms = await prisma.rules.deleteMany({
                     where: {
                         symptomCode: {
                             in: req.body.selectedSymptoms,
@@ -121,7 +121,7 @@ export default async function handler(
                     });
                 }
 
-                const deleteSymptom = await prisma.symptoms.deleteMany({
+                const deleteSymptom = await prisma.ketentuan.deleteMany({
                     where: {
                         code: {
                             in: req.body.selectedSymptoms,
