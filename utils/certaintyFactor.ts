@@ -209,9 +209,9 @@ export default class CertaintyFactor implements ICertaintyFactor {
             });
           } else {
             throw new Error(
-              `"${name}" pest or desease has ${calculatedSingleRuleCF.length} PestsAndDeseaseHasSymptoms records`,
+              `"${name}" jurusan has ${calculatedSingleRuleCF.length} rules records`,
               {
-                cause: `"${name}" pest or desease needs at least 1 PestsAndDeseaseHasSymptoms record`,
+                cause: `"${name}" jurusan needs at least 1 rules record`,
               }
             );
           }

@@ -132,12 +132,12 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
 
                 <section id='solusi' className='pt-20'>
                     <h2 className="text-center leading-[38px] md:leading-[48px] text-[30px] md:text-[40px] font-bold mb-4">
-                        test
+                        Ringkasan
                     </h2>
                     <p className="text-center text-base leading-[24px] max-w-[660px] m-auto mb-2">
-                        Berikut hasil
+                    {diagnoseHistory.jurusan.info}
                     </p>
-                    <p className='text-center text-base leading-[24px] max-w-[660px] m-auto mb-10 text-gray-500'>Terakhir diperbarui pada {new Date(diagnoseHistory.jurusan.updatedAt).toLocaleDateString("id-ID", {
+                    <p className='text-center text-base leading-[24px] max-w-[660px] m-auto mb-10 text-gray-500'>Dikerjakan pada {new Date(diagnoseHistory.jurusan.updatedAt).toLocaleDateString("id-ID", {
                         weekday: "long",
                         year: "numeric",
                         month: "long",
@@ -146,26 +146,9 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                     <div className='flex flex-col gap-0 lg:gap-3 lg:flex-row'>
                         <div className='flex-grow'>
                             <h3 className="text-center leading-[38px] md:leading-[48px] text-[20px] md:text-[30px] font-bold mb-4">
-                                diisi
+                                Hasil Test
                             </h3>
-                            <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
-                                diisi admin
-                            </p>
                             <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.jurusan.solution }}></div>
-                        </div>
-                        <div className="hidden divider lg:flex lg:divider-horizontal">
-                            disi admin
-                        </div>
-                        <div className="flex divider lg:hidden lg:divider-horizontal">
-                        </div>
-                        <div>
-                            <h3 className="text-center leading-[38px] md:leading-[48px] text-[20px] md:text-[30px] font-bold mb-4">
-                            test
-                            </h3>
-                            <p className='text-justify md:text-left text-base leading-[24px] max-w-[660px] m-auto'>
-                                test
-                            </p>
-                            <div className='text-justify md:text-left prose prose-p:my-3 text-base leading-[24px] max-w-[660px] m-auto' dangerouslySetInnerHTML={{ __html: diagnoseHistory.jurusan.activeIngredient }}></div>
                         </div>
                     </div>
                 </section>
@@ -200,21 +183,6 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
                             </table>
                         </div>
                     </div>
-                </div>
-
-                <div className="flex flex-col items-center justify-center text-center my-[82px] lg:my-[142px]">
-                    <h4 className="mb-3 text-3xl font-bold max-w-[552px]">
-                        Apakah anda ingin melakukan diagnosis lagi?
-                    </h4>
-                    <p className="mb-6 text-base max-w-[552px]">
-                        Jika iya, klik tombol <b>*Diagnosis Ulang*</b> dibawah
-                    </p>
-                    <Link
-                        href="/consult"
-                        className={`capitalize btn btn-active btn-ghost`}
-                    >
-                        Diagnosis Ulang
-                    </Link>
                 </div>
             </main>
             <Footer />

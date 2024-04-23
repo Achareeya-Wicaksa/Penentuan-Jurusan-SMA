@@ -39,7 +39,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
             }
         }
 
-        const pestsDeseases = await prisma.jurusan.findMany({
+        const jurusan = await prisma.jurusan.findMany({
             include: {
                 Rules: {
                     include: {
@@ -52,7 +52,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         return {
             props: {
                 user: userCookie,
-                _pestsDeseases: JSON.parse(JSON.stringify(pestsDeseases)),
+                _jurusan: JSON.parse(JSON.stringify(jurusan)),
             }
         }
     } catch (error) {
@@ -68,12 +68,12 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
 
 type AdminProps = {
     user: loggedInUserDataType;
-    _pestsDeseases: any;
+    _jurusan: any;
 }
 
-const Admin = ({ user, _pestsDeseases }: AdminProps) => {
-    const [pestsDeseases, setPestsDeseases] = useState(() => [..._pestsDeseases]);
-    const [selectedPestsDeseases, setSelectedPestsDeseases] = useState<any[]>([]);
+const Admin = ({ user, _jurusan }: AdminProps) => {
+    const [jurusan, setjurusan] = useState(() => [..._jurusan]);
+    const [selectedPestsDeseases, setSelectedjurusan] = useState<any[]>([]);
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
 
     const handleDeleteSelectedPestsAndDeseases = async () => {
@@ -95,8 +95,8 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
             .then((res) => res.json())
             .then((res) => {
                 setFetchIsLoading(false);
-                setPestsDeseases(pestsDeseases.filter((pd: any) => !selectedPestsDeseases.includes(pd.code)));
-                setSelectedPestsDeseases([]);
+                setjurusan(jurusan.filter((pd: any) => !selectedPestsDeseases.includes(pd.code)));
+                setSelectedjurusan([]);
             })
             .catch(() => {
                 toast.error('Sistem gagal menghapus data, ada kesalahan pada sistem', {
@@ -112,19 +112,19 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
         });
     }
 
-    const handleSelectOnePestDesease = (pestDeseaseCode: number) => {
-        if (selectedPestsDeseases.find((v) => v === pestDeseaseCode)) {
-            setSelectedPestsDeseases(selectedPestsDeseases.filter((v) => v !== pestDeseaseCode))
+    const handleSelectOnePestDesease = (jurusanCode: number) => {
+        if (selectedPestsDeseases.find((v) => v === jurusanCode)) {
+            setSelectedjurusan(selectedPestsDeseases.filter((v) => v !== jurusanCode))
         } else {
-            setSelectedPestsDeseases([...selectedPestsDeseases, pestDeseaseCode])
+            setSelectedjurusan([...selectedPestsDeseases, jurusanCode])
         }
     }
 
     const handleToggleAll = () => {
-        if (selectedPestsDeseases.length === pestsDeseases.length) {
-            setSelectedPestsDeseases([])
+        if (selectedPestsDeseases.length === jurusan.length) {
+            setSelectedjurusan([])
         } else {
-            setSelectedPestsDeseases(pestsDeseases.map((pd: any) => pd.code))
+            setSelectedjurusan(jurusan.map((pd: any) => pd.code))
         }
     }
 
@@ -168,7 +168,7 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
                                 <tr>
                                     <th>
                                         <label>
-                                            <input type="checkbox" className="checkbox" onChange={handleToggleAll} checked={selectedPestsDeseases.length === pestsDeseases.length} disabled={fetchIsLoading} />
+                                            <input type="checkbox" className="checkbox" onChange={handleToggleAll} checked={selectedPestsDeseases.length === jurusan.length} disabled={fetchIsLoading} />
                                         </label>
                                     </th>
                                     <th>Kode</th>
@@ -178,7 +178,7 @@ const Admin = ({ user, _pestsDeseases }: AdminProps) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {pestsDeseases.length > 0 ? pestsDeseases.map((pd: any, index: number) => (
+                                {jurusan.length > 0 ? jurusan.map((pd: any, index: number) => (
                                     <tr key={index}>
                                         <th>
                                             <label>

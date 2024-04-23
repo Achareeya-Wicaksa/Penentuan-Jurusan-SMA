@@ -45,7 +45,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         return {
             props: {
                 user: userCookie,
-                _symptoms: JSON.parse(JSON.stringify(ketentuan)),
+                _ketentuan: JSON.parse(JSON.stringify(ketentuan)),
             }
         }
     } catch (error) {
@@ -61,12 +61,12 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
 
 type AdminProps = {
     user: loggedInUserDataType;
-    _symptoms: any;
+    _ketentuan: any;
 }
 
-const Admin = ({ user, _symptoms }: AdminProps) => {
-    const [ketentuan, setSymptoms] = useState(() => [..._symptoms]);
-    const [selectedSymptoms, setSelectedSymptoms] = useState<any[]>([]);
+const Admin = ({ user, _ketentuan }: AdminProps) => {
+    const [ketentuan, setketentuan] = useState(() => [..._ketentuan]);
+    const [selectedSymptoms, setSelectedKetentuan] = useState<any[]>([]);
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
 
     const handleDeleteSelectedSymptoms = async () => {
@@ -88,8 +88,8 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
             .then((res) => res.json())
             .then((res) => {
                 setFetchIsLoading(false);
-                setSymptoms(ketentuan.filter((symptom: any) => !selectedSymptoms.includes(symptom.id)));
-                setSelectedSymptoms([]);
+                setketentuan(ketentuan.filter((ketentuan: any) => !selectedSymptoms.includes(ketentuan.id)));
+                setSelectedKetentuan([]);
             })
             .catch(() => {
                 toast.error('Sistem gagal menghapus data, ada kesalahan pada sistem', {
@@ -107,17 +107,17 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
 
     const handleSelectOneSymptom = (id: number) => {
         if (selectedSymptoms.find((v) => v === id)) {
-            setSelectedSymptoms(selectedSymptoms.filter((v) => v !== id))
+            setSelectedKetentuan(selectedSymptoms.filter((v) => v !== id))
         } else {
-            setSelectedSymptoms([...selectedSymptoms, id])
+            setSelectedKetentuan([...selectedSymptoms, id])
         }
     }
 
     const handleToggleAll = () => {
         if (selectedSymptoms.length === ketentuan.length) {
-            setSelectedSymptoms([])
+            setSelectedKetentuan([])
         } else {
-            setSelectedSymptoms(ketentuan.map((symptom: any) => symptom.id))
+            setSelectedKetentuan(ketentuan.map((ketentuan: any) => ketentuan.id))
         }
     }
 
@@ -175,25 +175,25 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {ketentuan.length > 0 ? ketentuan.map((symptom: any, index: number) => (
+                                {ketentuan.length > 0 ? ketentuan.map((ketentuan: any, index: number) => (
                                     <tr key={index}>
                                         <th>
                                             <label>
-                                                <input type="checkbox" className="checkbox" onChange={() => handleSelectOneSymptom(symptom.id)} checked={
-                                                    selectedSymptoms.find((v) => v === symptom.id) ? true : false
+                                                <input type="checkbox" className="checkbox" onChange={() => handleSelectOneSymptom(ketentuan.id)} checked={
+                                                    selectedSymptoms.find((v) => v === ketentuan.id) ? true : false
                                                 } disabled={fetchIsLoading} />
                                             </label>
                                         </th>
-                                        <td>{`${symptom.userId}`}</td>
+                                        <td>{`${ketentuan.userId}`}</td>
                                         <td>
-                                        {`${symptom.nama}`}
+                                        {`${ketentuan.nama}`}
                                         </td>
-                                        <td>{symptom.finalCF}</td>
-                                        <td>{symptom.userInputData}</td>
-                                        <td>{symptom.pestAndDeseaseCode}</td>
+                                        <td>{ketentuan.finalCF}</td>
+                                        <td>{ketentuan.userInputData}</td>
+                                        <td>{ketentuan.pestAndDeseaseCode}</td>
                                         <td>
                                             <div className='flex flex-row items-center justify-start gap-2'>
-                                                <Link href={`/nilaisiswa/edit/${symptom.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
+                                                <Link href={`/nilaisiswa/edit/${ketentuan.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
                                             </div>
                                         </td>
                                     </tr>
