@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
+    "@react-pdf/renderer": "^3.4.2",
     "@tailwindcss/typography": "^0.5.9",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -28,6 +29,8 @@
     "daisyui": "^2.51.5",
     "eslint": "^8.36.0",
     "eslint-config-next": "^13.2.4",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "next": "^13.2.4",
     "next-seo": "^6.0.0",
     "nextjs-progressbar": "^0.0.16",
@@ -58,7 +61,4 @@
     "tailwindcss": "^3.2.7",
     "ts-node": "^10.9.1"
   }
-
-  
-  
 }

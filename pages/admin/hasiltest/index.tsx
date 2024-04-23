@@ -3,11 +3,11 @@ import { deleteCookie, getCookie, hasCookie } from 'cookies-next';
 import Head from "next/head";
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
-import { BsPlus } from "react-icons/bs";
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import prisma from '@/prisma';
-import Image from 'next/image';
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 export async function getServerSideProps({ req, res }: getServerSidePropsType) {
     const isCookieExist = hasCookie("user", { req, res });
@@ -121,6 +121,50 @@ const Admin = ({ user, _ketentuan }: AdminProps) => {
         }
     }
 
+    const ketentuanWithoutActions = ketentuan.map(({ id, userId, nama, finalCF, userInputData, pestAndDeseaseCode }) => ({
+        id,
+        userId,
+        nama,
+        finalCF,
+        userInputData,
+        pestAndDeseaseCode
+    }));
+
+    const exportPDF = () => {
+        const doc = new jsPDF();
+    
+        const text1 = "SMA 1 Kedungwaru Tulungagung";
+        const text2 = "Jl. Dr. Wahidin Sudiro Husodo No.12, Kedung Indah,";
+        const text3 = "Kedungwaru, Kec. Kedungwaru, Kabupaten Tulungagung, Jawa Timur 66224";
+        const text4 = "Hasil Prediksi Jurusan dengan test minat";
+    
+        // Mengukur lebar teks
+        const textWidth1 = doc.getTextWidth(text1);
+        const textWidth2 = doc.getTextWidth(text2);
+        const textWidth3 = doc.getTextWidth(text3);
+        const textWidth4 = doc.getTextWidth(text4);
+    
+        // Mengatur posisi x agar berada di tengah
+        const xPosition1 = (doc.internal.pageSize.width - textWidth1) / 2;
+        const xPosition2 = (doc.internal.pageSize.width - textWidth2) / 2;
+        const xPosition3 = (doc.internal.pageSize.width - textWidth3) / 4;
+        const xPosition4 = (doc.internal.pageSize.width - textWidth4) / 2;
+    
+        doc.text(text1, xPosition1, 15);
+        doc.text(text4, xPosition4, 40); 
+        doc.setFontSize(10); 
+        doc.text(text2, xPosition1, 20);    
+        doc.text(text3, xPosition1, 25);    
+
+        doc.autoTable({
+            head: [['Nim', 'Nama Lengkap', 'Prediksi perhitungan CF', 'Jawaban yang dipilih', 'Hasil Prediksi']],
+            body: ketentuanWithoutActions.map(({ userId, nama, finalCF, userInputData, pestAndDeseaseCode }) => [userId, nama, finalCF, userInputData, pestAndDeseaseCode]),
+            startY: 60 // Tentukan posisi tabel untuk dimulai setelah teks di bagian atas
+        });
+    
+        doc.save('hasil_test_siswa.pdf');
+    };
+    
     return (
         <>
             <Head>
@@ -151,12 +195,12 @@ const Admin = ({ user, _ketentuan }: AdminProps) => {
                         {selectedSymptoms.length > 0 && (
                             <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedSymptoms} disabled={fetchIsLoading}>Hapus {selectedSymptoms.length} Data</button>
                         )}
-                        
+                        <button className="btn btn-primary" onClick={exportPDF}>Unduh PDF</button>
                     </div>
                 </div>
                 <div className="mt-4 pt-10">
                     <div className="w-full overflow-x-auto">
-                        <table className="table w-full">
+                        <table id="dataTable" className="table w-full">
                             <thead>
                                 <tr>
                                     <th>
