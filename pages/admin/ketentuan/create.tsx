@@ -76,7 +76,7 @@ const AdminCreateSymptom = ({ user }: AdminCreateProps) => {
         const fetchCreatePestOrDesease = (async () => {
             setFetchIsLoading(true);
 
-            return await fetch('/api/admin/symptoms', {
+            return await fetch('/api/admin/ketentuan', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

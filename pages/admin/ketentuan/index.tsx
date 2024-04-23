@@ -45,7 +45,7 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
         return {
             props: {
                 user: userCookie,
-                _symptoms: JSON.parse(JSON.stringify(ketentuan)),
+                _ketentuan: JSON.parse(JSON.stringify(ketentuan)),
             }
         }
     } catch (error) {
@@ -61,19 +61,19 @@ export async function getServerSideProps({ req, res }: getServerSidePropsType) {
 
 type AdminProps = {
     user: loggedInUserDataType;
-    _symptoms: any;
+    _ketentuan: any;
 }
 
-const Admin = ({ user, _symptoms }: AdminProps) => {
-    const [ketentuan, setSymptoms] = useState(() => [..._symptoms]);
+const Admin = ({ user, _ketentuan }: AdminProps) => {
+    const [ketentuan, setKetentuan] = useState(() => [..._ketentuan]);
     const [selectedSymptoms, setSelectedKetentuan] = useState<any[]>([]);
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
     console.log(selectedSymptoms)
-    const handleDeleteSelectedSymptoms = async () => {
-        const fetchDeletePestAndDesease = (async () => {
+    const handleDeleteSelectedKetentuan = async () => {
+        const fetchDeleteJurusan = (async () => {
             setFetchIsLoading(true);
 
-            return await fetch('/api/admin/symptoms', {
+            return await fetch('/api/admin/ketentuan', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,11 +84,11 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
             })
         })
 
-        toast.promise(fetchDeletePestAndDesease()
+        toast.promise(fetchDeleteJurusan()
             .then((res) => res.json())
             .then((res) => {
                 setFetchIsLoading(false);
-                setSymptoms(ketentuan.filter((ketentuan: any) => !selectedSymptoms.includes(ketentuan.code)));
+                setKetentuan(ketentuan.filter((ketentuan: any) => !selectedSymptoms.includes(ketentuan.code)));
                 setSelectedKetentuan([]);
             })
             .catch(() => {
@@ -105,11 +105,11 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
         });
     }
 
-    const handleSelectOneSymptom = (symptomCode: number) => {
-        if (selectedSymptoms.find((v) => v === symptomCode)) {
-            setSelectedKetentuan(selectedSymptoms.filter((v) => v !== symptomCode))
+    const handleSelectOneSymptom = (ketentuanCode: number) => {
+        if (selectedSymptoms.find((v) => v === ketentuanCode)) {
+            setSelectedKetentuan(selectedSymptoms.filter((v) => v !== ketentuanCode))
         } else {
-            setSelectedKetentuan([...selectedSymptoms, symptomCode])
+            setSelectedKetentuan([...selectedSymptoms, ketentuanCode])
         }
     }
 
@@ -149,7 +149,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                     </h4>
                     <div className='flex flex-row-reverse items-center justify-center gap-4 lg:flex-row'>
                         {selectedSymptoms.length > 0 && (
-                            <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedSymptoms} disabled={fetchIsLoading}>Hapus {selectedSymptoms.length} Data</button>
+                            <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedKetentuan} disabled={fetchIsLoading}>Hapus {selectedSymptoms.length} Data</button>
                         )}
                         <Link className="btn btn-primary" href="/admin/ketentuan/create"><BsPlus size={24} />Tambah Data</Link>
                     </div>

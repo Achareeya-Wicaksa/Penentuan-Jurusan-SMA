@@ -20,7 +20,11 @@ const navLinks = [
     path: "/about",
   },
   {
-    label: "Test Minat & Bakat",
+    label: "Dokumentasi",
+    path: "/dokumentasi",
+  },
+  {
+    label: "Test Minat",
     path: "/test_siswa",
   },
 ];
@@ -51,7 +55,7 @@ export default function Navbar({ isSticky = true, userFullname = null, role = nu
         <div className="flex flex-row items-center justify-between w-full safe-horizontal-padding">
           <Link
             href="/"
-            className="relative text-transparent transition-colors duration-300 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text hover:from-green-400 hover:to-green-400 hover:transition-transform hover:duration-1000"
+            className="relative text-transparent transition-colors duration-300 bg-gradient-to-r from-blue-400 to-yellow-400 bg-clip-text hover:from-blue-400 hover:to-red-400 hover:transition-transform hover:duration-1000"
           >
             <h1 className="text-4xl font-bold font-kodchasan">SMARIDUTA</h1>
             <p className="font-kodchasan font-bold text-[10px]">
@@ -89,9 +93,6 @@ export default function Navbar({ isSticky = true, userFullname = null, role = nu
                         <Link href="/admin">Admin Dashboard</Link>
                       </li>
                     )}
-                    <li>
-                      <Link href="/login">{role === "admin" && "User "}Dashboard</Link>
-                    </li>
                     <li>
                       <button onClick={handleClickLogout}>Keluar</button>
                     </li>

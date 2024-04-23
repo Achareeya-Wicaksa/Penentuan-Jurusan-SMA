@@ -61,45 +61,6 @@ export default function About({ user }: AboutProps) {
 
           </p>
         </div>
-
-        {/* expert info */}
-        <div className="grid grid-flow-row grid-cols-2 items-center gap-[40px] md:gap-[80px] lg:gap-[50px] mb-[112px] lg:mb-[172px]">
-          {/* image */}
-          <div className="col-span-2 md:col-span-1">
-            <Image
-              src={''}
-              className="object-cover md:h-[332px] md:w-[380px] lg:h-auto lg:w-[480px] bg-primary rounded-2xl"
-              alt=""
-            />
-          </div>
-          {/* expert info */}
-          <div className="col-span-2 md:col-span-1">
-            <div className="text-base lg:text-xl">
-              <h3 className="font-bold text-2xl md:text-3xl leading-[37px] md:leading-[48px] mb-4">
-                Kepala Sekolah
-              </h3>
-              <table className="mb-4 text-left">
-                <tbody>
-                  <tr className="align-text-top">
-                    <th>Nama</th>
-                    <td className="px-2">:</td>
-                    <td>xx</td>
-                  </tr>
-                  
-                  <tr className="align-text-top">
-                    <th>Biodata singkat</th>
-                    <td className="px-2">:</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                xxx
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* developer info */}
         <div className="grid grid-flow-row grid-cols-2 items-center gap-[40px] md:gap-[80px] lg:gap-[50px]">
           {/* image */}
           <div className="flex justify-start col-span-2 md:col-span-1 md:order-last md:justify-end">
@@ -108,36 +69,6 @@ export default function About({ user }: AboutProps) {
               className="lg:max-h-[432px] object-cover md:h-[332px] md:w-[380px] lg:h-auto lg:w-[480px] bg-primary rounded-2xl"
               alt=""
             />
-          </div>
-          {/* info */}
-          <div className="col-span-2 md:col-span-1">
-            <div className="text-base lg:text-xl">
-              <h3 className="font-bold text-2xl md:text-3xl leading-[37px] md:leading-[48px] mb-4">
-                Tentang Pengembang
-              </h3>
-              <table className="mb-4 text-left">
-                <tbody>
-                  <tr className="align-text-top">
-                    <th>Nama</th>
-                    <td className="px-2">:</td>
-                    <td>Achareeya Wicaksa PP</td>
-                  </tr>
-                  <tr className="align-text-top">
-                    <th>Pekerjaan</th>
-                    <td className="px-2">:</td>
-                    <td>Mahasiswa</td>
-                  </tr>
-                  <tr className="align-text-top">
-                    <th>Biodata Singkat</th>
-                    <td className="px-2">:</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                Sebagai pengembang aplikasi dan juga seorang knowledge engineer
-                dari aplikasi .
-              </p>
-            </div>
           </div>
         </div>
       </main>

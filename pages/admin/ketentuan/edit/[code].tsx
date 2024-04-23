@@ -49,7 +49,7 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
             }
         }
 
-        const pestsDesease = await prisma.ketentuan.findUnique({
+        const jurusan = await prisma.ketentuan.findUnique({
             where: {
                 code: parseInt(code),
             },
@@ -58,7 +58,7 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
         return {
             props: {
                 user: userCookie,
-                symptom: JSON.parse(JSON.stringify(pestsDesease)),
+                ketentuan: JSON.parse(JSON.stringify(jurusan)),
             }
         }
     } catch (error) {
@@ -74,7 +74,7 @@ export async function getServerSideProps({ params: { code }, req, res }: getServ
 
 type AdminCreateProps = {
     user: loggedInUserDataType;
-    symptom: {
+    ketentuan: {
         code: number;
         info: string;
         imageUrl: string;
@@ -83,9 +83,9 @@ type AdminCreateProps = {
     };
 }
 
-const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
+const AdminCreateSymptom = ({ user, ketentuan }: AdminCreateProps) => {
     const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(false);
-    const [selectedImageUrl, setSelectedImageUrl] = useState<any>(symptom.imageUrl);
+    const [selectedImageUrl, setSelectedImageUrl] = useState<any>(ketentuan.imageUrl);
     const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
@@ -99,13 +99,13 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
         const fetchCreatePestOrDesease = (async () => {
             setFetchIsLoading(true);
 
-            return await fetch('/api/admin/symptoms', {
+            return await fetch('/api/admin/ketentuan', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    symptomCode: symptom.code,
+                    symptomCode: ketentuan.code,
                     info: data.info,
                     imageUrl: data.imageUrl,
                 }),
@@ -133,7 +133,7 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
     return (
         <>
             <Head>
-                <title>Ubah Data pertanyaan [{symptom.code}]: {symptom.info} Admin</title>
+                <title>Ubah Data pertanyaan [{ketentuan.code}]: {ketentuan.info} Admin</title>
                 <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -154,12 +154,12 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Ubah Data pertanyaan [{symptom.code}]: {symptom.info}
+                            Ubah Data pertanyaan [{ketentuan.code}]: {ketentuan.info}
                         </li>
                     </ul>
                 </div>
                 <h4 className="mt-1 mb-2 text-xl font-bold">
-                    Ubah Data pertanyaan [{symptom.code}]: {symptom.info}
+                    Ubah Data pertanyaan [{ketentuan.code}]: {ketentuan.info}
                 </h4>
                 <div className="mt-2">
                     <form onSubmit={onSubmitHandler} ref={formRef} encType='multipart/form-data'>
@@ -175,7 +175,7 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
                                         <span className="label-text">Keterangan Ketentuan</span>
                                     </label>
                                     <label className="rounded-md input-group">
-                                        <input type="text" name="info" placeholder="Ciri-Ciri Ketentuan" className="w-full input input-bordered" id='info' required disabled={fetchIsLoading} defaultValue={symptom.info} />
+                                        <input type="text" name="info" placeholder="Ciri-Ciri Ketentuan" className="w-full input input-bordered" id='info' required disabled={fetchIsLoading} defaultValue={ketentuan.info} />
                                     </label>
                                 </div>
                                 <div className="form-control">
@@ -190,7 +190,7 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
                                             className="w-full input input-bordered"
                                             id='imageUrl'
                                             disabled={fetchIsLoading}
-                                            defaultValue={symptom.imageUrl}
+                                            defaultValue={ketentuan.imageUrl}
                                             onChange={(e: any) => {
                                                 setSelectedImageUrl(e.target.value);
                                             }}

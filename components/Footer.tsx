@@ -18,31 +18,6 @@ const footLinks = [
         name: "Tentang",
         href: "/about",
       },
-      {
-        name: "Masuk",
-        href: "/login",
-      },
-      {
-        name: "Daftar",
-        href: "/register",
-      },
-    ],
-  },
-  {
-    heading: "Bantuan",
-    links: [
-      {
-        name: "Lupa Kata Sandi",
-        href: "/login/forgot-password",
-      },
-      {
-        name: "Kirim Ulang Verifikasi",
-        href: "/register/resend-email-verification",
-      },
-      {
-        name: "Hubungi Kami",
-        href: `mailto:${email}?subject=Hi%20SIPBUK%20Team`,
-      },
     ],
   },
   {
@@ -51,14 +26,6 @@ const footLinks = [
       {
         name: "Dokumentasi",
         href: "/docs",
-      },
-      {
-        name: "Panduan Admin",
-        href: "/docs/admin-guide",
-      },
-      {
-        name: "Panduan Pengguna",
-        href: "/docs/user-guide",
       },
     ],
   },

@@ -163,7 +163,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                         </h2>
                         <p className='font-bold'>Hasil Siswa yang telah mengerjakan</p>
                         <div className="justify-end card-actions">
-                            <Link href="/hasiltest" className="btn btn-primary">Lihat</Link>
+                            <Link href="/admin/hasiltest" className="btn btn-primary">Lihat</Link>
                         </div>
                     </div>
                 </div>

@@ -17,13 +17,14 @@ module.exports = {
         kodchasan: ["Kodchasan", "sans-serif"],
       },
       colors: {
-        primary: "#ECF1F2",
+        primary: "#cffcf8",
         secondary: "#91FF87",
       },
     },
   },
   plugins: [require("daisyui"), require("@tailwindcss/typography")],
   daisyui: {
-    themes: ["light"],
+    themes: ["autumn"],
   },
 };
+/* lemodane */

@@ -168,7 +168,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                     </th>
                                     <th>Nim</th>
                                     <th>Nama Lengkap</th>
-                                    <th>Total nilai jumlah perhitungan</th>
+                                    <th>Prediksi perhitungan CF</th>
                                     <th>Jawaban yang dipilih</th>
                                     <th>Hasil Prediksi</th>
                                     <th>Aksi</th>
