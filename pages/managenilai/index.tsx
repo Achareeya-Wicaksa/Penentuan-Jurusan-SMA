@@ -151,7 +151,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                         {selectedSymptoms.length > 0 && (
                             <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedSymptoms} disabled={fetchIsLoading}>Hapus {selectedSymptoms.length} Data</button>
                         )}
-                        <Link className="btn btn-primary" href="/nilaisiswa/create"><BsPlus size={24} />Tambah Data</Link>
+                        <Link className="btn btn-primary" href="/daftarsiswa/create"><BsPlus size={24} />Tambah Data</Link>
                     </div>
                 </div>
                 <div className="mt-4">
@@ -191,7 +191,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                         <td>{symptom.password}</td>
                                         <td>
                                             <div className='flex flex-row items-center justify-start gap-2'>
-                                                <Link href={`/nilaisiswa/edit/${symptom.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
+                                                <Link href={`/daftarsiswa/edit/${symptom.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
                                             </div>
                                         </td>
                                     </tr>

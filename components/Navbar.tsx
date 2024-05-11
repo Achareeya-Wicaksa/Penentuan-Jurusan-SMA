@@ -24,7 +24,7 @@ const navLinks = [
     path: "/dokumentasi",
   },
   {
-    label: "Test Minat",
+    label: "Test Penjurusan",
     path: "/test_siswa",
   },
 ];

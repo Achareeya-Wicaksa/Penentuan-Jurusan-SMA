@@ -132,7 +132,7 @@ export default function Login({ AES_KEY }: LoginProps) {
           {/* form */}
           <div className="mx-auto mt-10 mb-10">
             <h2 className="text-[30px] md:text-[40px] font-bold leading-[38px] md:leading-[48px] mb-2 md:mb-4">
-              Kerjakan Test Minat
+              Kerjakan Test Penjurusan
             </h2>
             <p className="max-w-xl mb-4 text-base font-normal">
               Masuk untuk mulai mengerjakan test Minat serta bakat, Berguna untuk menentukan

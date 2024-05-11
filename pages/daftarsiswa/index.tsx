@@ -124,7 +124,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
     return (
         <>
             <Head>
-                <title>Data nilai siswa</title>
+                <title>Data siswa</title>
                 <meta name="description" content="." />
             </Head>
             <Navbar userFullname={user.fullname} role={user.role} />
@@ -139,7 +139,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-2 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                            Data nilai siswa
+                            Data siswa
                         </li>
                     </ul>
                 </div>
@@ -151,7 +151,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                         {selectedSymptoms.length > 0 && (
                             <button className={`btn btn-error text-white ${fetchIsLoading ? "loading" : ""}`} onClick={handleDeleteSelectedSymptoms} disabled={fetchIsLoading}>Hapus {selectedSymptoms.length} Data</button>
                         )}
-                        <Link className="btn btn-primary" href="/nilaisiswa/create"><BsPlus size={24} />Tambah Data</Link>
+                        <Link className="btn btn-primary" href="/daftarsiswa/create"><BsPlus size={24} />Tambah Data</Link>
                     </div>
                 </div>
                 <div className="mt-4">
@@ -191,7 +191,7 @@ const Admin = ({ user, _symptoms }: AdminProps) => {
                                         <td>{symptom.password}</td>
                                         <td>
                                             <div className='flex flex-row items-center justify-start gap-2'>
-                                                <Link href={`/nilaisiswa/edit/${symptom.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
+                                                <Link href={`/daftarsiswa/edit/${symptom.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
                                             </div>
                                         </td>
                                     </tr>

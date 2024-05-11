@@ -113,7 +113,7 @@ const AdminCreateSymptom = ({ user, symptom }: AdminCreateProps) => {
         toast.promise(fetchCreatePestOrDesease()
             .then((res) => res.json())
             .then((res) => {
-                router.push(`/nilaisiswa`);
+                router.push(`/daftarsiswa`);
             })
             .catch(() => {
                 toast.error('Sistem gagal menyimpan data, ada kesalahan pada sistem', {

@@ -237,7 +237,7 @@ const Admin = ({ user, _ketentuan }: AdminProps) => {
                                         <td>{ketentuan.pestAndDeseaseCode}</td>
                                         <td>
                                             <div className='flex flex-row items-center justify-start gap-2'>
-                                                <Link href={`/nilaisiswa/edit/${ketentuan.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
+                                                <Link href={`/daftarsiswa/edit/${ketentuan.id}`} className="btn btn-outline btn-info btn-xs">Ubah</Link>
                                             </div>
                                         </td>
                                     </tr>

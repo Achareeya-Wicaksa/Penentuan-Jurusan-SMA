@@ -131,7 +131,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                                 <span style={{ "--value": symptomsCount }}></span>
                             </span>
                         </h2>
-                        <p className='font-bold'>Manajemen Pertanyaan dan perpoinan Test Minat</p>
+                        <p className='font-bold'>Manajemen Pertanyaan dan perpoinan Test Penjurusan</p>
                         <div className="justify-end card-actions">
                             <Link href="/admin/ketentuan" className="btn btn-primary">Lihat</Link>
                         </div>
@@ -148,7 +148,7 @@ const Admin = ({ user, pestsAndDeseasesCount, symptomsCount, usersCount, usersDi
                         </h2>
                         <p className='font-bold'>Manajemen akun Siswa</p>
                         <div className="justify-end card-actions">
-                            <Link href="/nilaisiswa" className="btn btn-primary">Lihat</Link>
+                            <Link href="/daftarsiswa" className="btn btn-primary">Lihat</Link>
                         </div>
                     </div>
                 </div>
