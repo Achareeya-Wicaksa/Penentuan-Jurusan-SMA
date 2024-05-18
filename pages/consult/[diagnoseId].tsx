@@ -122,10 +122,10 @@ export default function DiagnoseResult({ user, diagnoseHistory, diagnoseHistoryS
             <main className="safe-horizontal-padding my-[16px] md:my-[48px]">
                 <div className="h-full md:h-[482px] bg-primary rounded-2xl flex flex-col justify-center items-center p-6 md:p-6">
                     <h2 className="text-center leading-[38px] md:leading-[48px] text-[30px] md:text-[40px] font-bold mb-4">
-                        Hasil Diagnosis
+                        Hasil Tes
                     </h2>
                     <p className="text-center text-base leading-[24px] max-w-[660px]">
-                        Hasil Diagnosis menunjukan bahwa anda cocok pada <b className='capitalize'>{diagnoseHistory.jurusan.name}</b> dengan tingkat <b>Akurasi {getAccurationLevel(diagnoseHistory.finalCF)}</b> sebesar <b>{getPercentageAccuration(diagnoseHistory.finalCF)}</b>
+                        Hasil Tes menunjukan bahwa anda cocok pada <b className='capitalize'>{diagnoseHistory.jurusan.name}</b> dengan tingkat <b>Akurasi {getAccurationLevel(diagnoseHistory.finalCF)}</b> sebesar <b>{getPercentageAccuration(diagnoseHistory.finalCF)}</b>
                     </p>
                     <a href="#solusi" className="mt-5 btn btn-active btn-ghost">Lihat Solusi</a>
                 </div>

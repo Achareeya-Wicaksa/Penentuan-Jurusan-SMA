@@ -5,9 +5,9 @@ const extLinkQuery = (label: string, query: string) => {
 
 
 export const uncertaintyValueRawData = [
-  { label: "Sangat Yakin", value: 0.9 },
-  { label: "Yakin", value: 0.6 },
-  { label: "Sedikit Yakin", value: 0.2 },
-  { label: "Tidak Yakin", value: -0.4 },
-  { label: "Sangat Tidak Yakin", value: -0.8 },
+  { label: "Sangat Setuju", value: 0.9 },
+  { label: "Setuju", value: 0.6 },
+  { label: "Yakin", value: 0.2 },
+  { label: "Tidak Setuju", value: -0.4 },
+  { label: "Sangat Tidak Setuju", value: -0.8 },
 ];

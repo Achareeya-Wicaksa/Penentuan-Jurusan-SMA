@@ -350,14 +350,14 @@ export default function Consult({ user, questionList }: ConsultProps) {
                 </h4>
                 <p className="mb-6 text-base max-w-[552px]">
                   Jika belum yakin, anda dapat mengeceknya kembali. Jika sudah
-                  yakin, anda bisa klik tombol <b>*Yakin dan Diagnosis*</b> berikut
+                  yakin, anda bisa klik tombol <b>*Submit*</b> berikut
                 </p>
                 <button
                   className={`${fetchIsLoading ? 'loading' : ''} capitalize btn btn-active btn-ghost`}
                   type="submit"
                   disabled={fetchIsLoading}
                 >
-                  {fetchIsLoading ? 'Memproses...' : 'Yakin dan Diagnosis'}
+                  {fetchIsLoading ? 'Memproses...' : 'Submit'}
                 </button>
               </div>
             </form>
@@ -462,7 +462,7 @@ export default function Consult({ user, questionList }: ConsultProps) {
                       <span className="px-2">+</span>
                       <kbd className="kbd">Enter</kbd>
                     </td>
-                    <td>Selesai dan Diagnosis</td>
+                    <td>Selesai dan Submit</td>
                     <td><button className="btn" onClick={() => {
                       if (!fetchIsLoading) {
                         formRef && formRef.current && formRef.current.requestSubmit();
