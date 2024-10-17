@@ -156,11 +156,7 @@ const Admin = ({ user, _ketentuan }: AdminProps) => {
         doc.text(text2, xPosition1, 20);    
         doc.text(text3, xPosition1, 25);    
 
-        doc.autoTable({
-            head: [['Nim', 'Nama Lengkap', 'Prediksi perhitungan CF', 'Jawaban yang dipilih', 'Hasil Prediksi']],
-            body: ketentuanWithoutActions.map(({ userId, nama, finalCF, userInputData, pestAndDeseaseCode }) => [userId, nama, finalCF, userInputData, pestAndDeseaseCode]),
-            startY: 60 // Tentukan posisi tabel untuk dimulai setelah teks di bagian atas
-        });
+        
     
         doc.save('hasil_test_siswa.pdf');
     };
