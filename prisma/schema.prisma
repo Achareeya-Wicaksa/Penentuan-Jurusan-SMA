@@ -3,55 +3,54 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model User {
-  id                   String                 @id @default(uuid())
-  role                 String                 @default("user")
-  fullname             String                 @db.VarChar(255)
-  email                String                 @unique
+  id                   String   @id @default(uuid())
+  role                 String   @default("user")
+  fullname             String   @db.VarChar(255)
+  email                String   @unique
   password             String
-  isVerified           Boolean                @default(false)
-  verifyToken          String?                @unique
-  authToken            String?                @unique
-  passwordResetToken   String?                @unique
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  
+  isVerified           Boolean  @default(false)
+  verifyToken          String?  @unique
+  authToken            String?  @unique
+  passwordResetToken   String?  @unique
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 }
 
 model Jurusan {
-  code                        Int                           @id @default(autoincrement())
-  name                        String                       @unique
-  createdAt                   DateTime                      @default(now())
-  updatedAt                   DateTime                      @updatedAt
-  ketentuan                    Ketentuan[]                    @relation("Rules")
-  solution                    String                        @db.Text
-  activeIngredient            String                        @db.Text
-  Rules                       Rules[]
+  code                        Int              @id @default(serial())
+  name                        String           @unique
+  createdAt                   DateTime        @default(now())
+  updatedAt                   DateTime        @updatedAt
+  ketentuan                   Ketentuan[]     @relation("Rules")
+  solution                    String           @db.Text
+  activeIngredient            String           @db.Text
+  Rules                       Rules[]         @relation("Rules")
   UsersDiagnoseHistory        UsersDiagnoseHistory[]
 }
 
 model Ketentuan {
-  code                        Int                           @id @default(autoincrement())
-  info                        String                        @db.VarChar(255)
-  imageUrl                    String                        @db.VarChar(255)
-  createdAt                   DateTime                      @default(now())
-  updatedAt                   DateTime                      @updatedAt
-  jurusan            Jurusan[]            @relation("Rules")
-  Rules               Rules[]
+  code                        Int              @id @default(serial())
+  info                        String           @db.VarChar(255)
+  imageUrl                    String           @db.VarChar(255)
+  createdAt                   DateTime        @default(now())
+  updatedAt                   DateTime        @updatedAt
+  jurusan                    Jurusan[]        @relation("Rules")
+  Rules                       Rules[]
 }
 
 model Rules {
-  id                 Int              @id @default(autoincrement())
+  id                 Int              @id @default(serial())
   pestAndDeseaseCode Int
   symptomCode        Int
   expertCF           Float            @default(0)
-  jurusan   Jurusan @relation(fields: [pestAndDeseaseCode], references: [code])
-  ketentuan           Ketentuan         @relation(fields: [symptomCode], references: [code])
+  jurusan            Jurusan         @relation(fields: [pestAndDeseaseCode], references: [code])
+  ketentuan          Ketentuan       @relation(fields: [symptomCode], references: [code])
 
   @@index([symptomCode])
   @@index([pestAndDeseaseCode])
@@ -62,22 +61,22 @@ model UsersDiagnoseHistory {
   userId             Int
   pestAndDeseaseCode String           @db.VarChar(255)
   nama               String           @default("x")
-  finalCF            Float            @default(0)
+  finalCF           Float            @default(0)
   userInputData      Json
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
-  daftarSiswa               DaftarSiswa?            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  jurusan   Jurusan @relation(fields: [pestAndDeseaseCode], references: [name])
+  daftarSiswa        DaftarSiswa?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jurusan            Jurusan         @relation(fields: [pestAndDeseaseCode], references: [name])
 
   @@index([userId])
   @@index([pestAndDeseaseCode])
 }
 
 model DaftarSiswa {
-  id                   Int                  @id @default(autoincrement())
-  nim                  String                    @unique
-  fullname             String                 @db.VarChar(255)
-  username             String                 @unique
+  id                   Int                  @id @default(serial())
+  nim                  String                @unique
+  fullname             String                @db.VarChar(255)
+  username             String                @unique
   password             String
   UsersDiagnoseHistory UsersDiagnoseHistory[]
 }
